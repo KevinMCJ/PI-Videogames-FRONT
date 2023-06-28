@@ -1,0 +1,11 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.linkList {
+  display: flex;
+  width: 70%;
+  justify-content: space-around;
+}
