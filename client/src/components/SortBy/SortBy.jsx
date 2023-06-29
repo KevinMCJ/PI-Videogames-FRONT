@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { sortGamesByName, sortGamesByRating } from "../../redux/actions";
 
-const SortBy = () => {
+const SortBy = ({ handlePageChange }) => {
   const dispatch = useDispatch();
 
   const handleSelect = (event) => {
@@ -14,6 +14,7 @@ const SortBy = () => {
     } else if (name === "sort-rating") {
       dispatch(sortGamesByRating(value));
     }
+    handlePageChange(1);
   };
 
   return (

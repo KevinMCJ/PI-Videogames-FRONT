@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getVideogamesByName } from "../../redux/actions.js";
 
-const SearchBar = () => {
+const SearchBar = ({ handlePageChange }) => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
 
@@ -12,7 +12,7 @@ const SearchBar = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(getVideogamesByName(name));
+    dispatch(getVideogamesByName(name)).then(() => handlePageChange(1));
   };
 
   return (

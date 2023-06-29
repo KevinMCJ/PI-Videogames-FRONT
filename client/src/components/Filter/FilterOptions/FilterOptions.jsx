@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterGames } from "../../../redux/actions";
 import styles from "./FilterOptions.module.css";
 
-const FilterOptions = ({ setIsOpen }) => {
+const FilterOptions = ({ setIsOpen, handlePageChange }) => {
   const dispatch = useDispatch();
   const genres = useSelector((state) => state.genres);
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -35,6 +35,7 @@ const FilterOptions = ({ setIsOpen }) => {
         selectedOrigin,
       })
     );
+    handlePageChange(1);
   };
 
   return (
