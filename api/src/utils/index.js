@@ -10,6 +10,7 @@ const apiInfoClean = (videogame) => {
     released: videogame.released,
     rating: videogame.rating,
     genres: videogame.genres.map((genre) => genre.name),
+    origin: "api",
   };
 };
 

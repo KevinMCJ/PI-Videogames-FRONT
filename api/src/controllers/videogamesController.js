@@ -23,6 +23,7 @@ const getVideogamesDB = async () => {
   videogamesDB = videogamesDB.map((game) => ({
     ...game.toJSON(),
     genres: game.genres.map((genre) => genre.name),
+    origin: "created",
   }));
 
   return videogamesDB;

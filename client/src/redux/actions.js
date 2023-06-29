@@ -5,6 +5,10 @@ const baseURL = "http://localhost:3001";
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
 export const GET_VIDEOGAMES_BY_NAME = "GET_VIDEOGAMES_BY_NAME";
 export const GET_VIDEOGAME_BY_ID = "GET_VIDEOGAME_BY_ID";
+export const FILTER_GAMES = "FILTER_GAMES";
+export const SORT_BY_NAME = "SORT_BY_NAME";
+export const SORT_BY_RATING = "SORT_BY_RATING";
+export const CLEAR_FILTERS = "CLEAR_FILTERS";
 export const GET_GENRES = "GET_GENRES";
 export const SET_LOADING = "SET_LOADING";
 
@@ -45,6 +49,27 @@ export const getVideogameById = (id) => {
   };
 };
 
+export const filterGames = (arrFilters) => {
+  return {
+    type: FILTER_GAMES,
+    payload: arrFilters,
+  };
+};
+
+export const sortGamesByName = (order) => {
+  return {
+    type: SORT_BY_NAME,
+    payload: order,
+  };
+};
+
+export const sortGamesByRating = (order) => {
+  return {
+    type: SORT_BY_RATING,
+    payload: order,
+  };
+};
+
 export const getGenres = () => {
   return async (dispatch) => {
     const endpoint = `${baseURL}/genres`;
@@ -61,5 +86,11 @@ export const setLoading = (isLoading) => {
   return {
     type: SET_LOADING,
     payload: isLoading,
+  };
+};
+
+export const clearAllFilters = () => {
+  return {
+    type: CLEAR_FILTERS,
   };
 };
