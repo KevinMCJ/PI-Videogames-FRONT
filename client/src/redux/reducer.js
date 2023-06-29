@@ -6,6 +6,8 @@ const {
   SORT_BY_NAME,
   SORT_BY_RATING,
   CLEAR_FILTERS,
+  CREATE_GAME,
+  GET_PLATFORMS,
   GET_GENRES,
   SET_LOADING,
 } = require("./actions");
@@ -15,6 +17,7 @@ const initialState = {
   allGames: [],
   copyGames: [],
   game: {},
+  platforms: [],
   genres: [],
 };
 
@@ -46,7 +49,7 @@ const rootReducer = (state = initialState, action) => {
       } else if (action.payload === "desc") {
         sortedGamesByName.sort((a, b) => b.name.localeCompare(a.name));
       }
-      
+
       return { ...state, copyGames: sortedGamesByName };
     case SORT_BY_RATING:
       const sortedGamesByRating = [...state.copyGames];
@@ -58,6 +61,10 @@ const rootReducer = (state = initialState, action) => {
       }
 
       return { ...state, copyGames: sortedGamesByRating };
+    case CREATE_GAME:
+      return { ...state, allGames: [...state.allGames, action.payload] };
+    case GET_PLATFORMS:
+      return { ...state, platforms: action.payload };
     case GET_GENRES:
       return { ...state, genres: action.payload };
     case SET_LOADING:

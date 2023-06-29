@@ -9,6 +9,8 @@ export const FILTER_GAMES = "FILTER_GAMES";
 export const SORT_BY_NAME = "SORT_BY_NAME";
 export const SORT_BY_RATING = "SORT_BY_RATING";
 export const CLEAR_FILTERS = "CLEAR_FILTERS";
+export const CREATE_GAME = "CREATE_GAME";
+export const GET_PLATFORMS = "GET_PLATFORMS";
 export const GET_GENRES = "GET_GENRES";
 export const SET_LOADING = "SET_LOADING";
 
@@ -67,6 +69,30 @@ export const sortGamesByRating = (order) => {
   return {
     type: SORT_BY_RATING,
     payload: order,
+  };
+};
+
+export const createGame = (newGame) => {
+  return async (dispatch) => {
+    const endpoint = `${baseURL}/videogames`;
+    const { data } = await axios.post(endpoint, newGame);
+
+    dispatch({
+      type: CREATE_GAME,
+      payload: data,
+    });
+  };
+};
+
+export const getPlatforms = () => {
+  return async (dispatch) => {
+    const endpoint = `${baseURL}/platforms`;
+    const { data } = await axios.get(endpoint);
+
+    dispatch({
+      type: GET_PLATFORMS,
+      payload: data,
+    });
   };
 };
 

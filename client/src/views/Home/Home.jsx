@@ -7,7 +7,7 @@ import {
   Pagination,
 } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
-import { getVideogames, getGenres, clearAllFilters } from "../../redux/actions";
+import { clearAllFilters } from "../../redux/actions";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -20,11 +20,6 @@ const Home = () => {
   const indexOfLastGame = currentPage * gamesPerPage;
   const indexOfFirstGame = indexOfLastGame - gamesPerPage;
   const totalPages = Math.ceil(videogames.length / gamesPerPage);
-
-  useEffect(() => {
-    dispatch(getGenres());
-    dispatch(getVideogames());
-  }, [dispatch]);
 
   useEffect(() => {
     setGamesToDisplay(videogames.slice(indexOfFirstGame, indexOfLastGame));

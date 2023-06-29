@@ -15,31 +15,41 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+          is: {
+            args: /^[a-zA-Z0-9\s]+$/,
+            msg: "The name must not contain special characters",
+          },
+          len: { args: [1, 30], msg: "Name must not exceed 30 characters." },
+        },
       },
       description: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      platforms: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
-      },
       image: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          isUrl: {
+            msg: "Image must be a valid URL beginning with http:// or https://",
+          },
+        },
       },
       released: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          isDate: true,
+          isDate: { msg: "Date must be in YYYYY-MM-DD format." },
         },
       },
       rating: {
         type: DataTypes.DECIMAL,
         allowNull: false,
         validate: {
-          isNumeric: true,
+          isNumeric: { msg: "The rating must be numeric." },
+          min: { args: [1], msg: "Minimum rating is 1." },
+          max: { args: [5], msg: "Maximum rating is 5." },
         },
       },
     },

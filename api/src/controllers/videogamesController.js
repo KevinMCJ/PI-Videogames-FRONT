@@ -1,8 +1,17 @@
 require("dotenv").config();
 const axios = require("axios");
 const { API_KEY } = process.env;
-const { Videogame, Genre } = require("../db");
-const { apiInfoClean } = require("../utils/index");
+const { Videogame, Genre, Platform } = require("../db");
+const {
+  apiInfoClean,
+  validateArrayWithMinimumLength,
+  validateTextWithoutSpecialChars,
+  validateDateFormat,
+  validateURL,
+  validateNumberWithRange,
+  validateGenres,
+  validatePlatforms,
+} = require("../utils/index");
 const endpoint = `https://api.rawg.io/api/games`;
 
 const getVideogamesDB = async () => {
@@ -16,13 +25,23 @@ const getVideogamesDB = async () => {
           attributes: [],
         },
       },
+      {
+        model: Platform,
+        as: "platforms",
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
     ],
   });
 
-  // * Transformo la estructura de "genres"
+  // * Transformo la estructura de "genres" y "platforms"
+  // * Para que coincida con la de los juegos de la API y sea todo uniforme.
   videogamesDB = videogamesDB.map((game) => ({
     ...game.toJSON(),
     genres: game.genres.map((genre) => genre.name),
+    platforms: game.platforms.map((platform) => platform.name),
     origin: "created",
   }));
 
@@ -67,7 +86,7 @@ const getVideogamesByName = async (name) => {
 
   name = name.trim().toLowerCase();
 
-  // * Que no existan juegos con ese nombre no es un error.
+  // ? Que no existan juegos con ese nombre no es un error.
   const allVideogames = await getAllVideogames();
   const filteredGames = allVideogames.filter((game) =>
     game.name.toLowerCase().includes(name)
@@ -90,8 +109,6 @@ const getVideogameById = async (id) => {
   return videogame;
 };
 
-// ! Agregar mas validaciones para recibir bien los datos, es importante aunque en el front ya las tengamos.
-// ! NO OLVIDAR VALIDACIONES FIJARSE CUAL ES EL MAXIMO RATING, QUE SEA FECHA REALEASED ETC.
 const createVideogame = async (
   name,
   description,
@@ -101,33 +118,42 @@ const createVideogame = async (
   rating,
   genres
 ) => {
-  if (!name || !description || !platforms || !image || !released || !rating) {
+  if (
+    !name ||
+    !description ||
+    !platforms ||
+    !image ||
+    !released ||
+    !rating ||
+    !genres
+  ) {
     throw Error("Required data missing");
   }
-  // * Platforms y Genres tienen que ser arrays y tener al menos un elemento para continuar.
-  if (!Array.isArray(platforms) || platforms.length < 1)
-    throw Error("Invalid format or at least one platform is required");
 
-  if (!Array.isArray(genres) || genres.length < 1)
-    throw Error("Invalid format or at least one gender is required.");
+  validateTextWithoutSpecialChars(name, 1, 30, "Name");
+  validateDateFormat(released);
+  validateURL(image);
+  validateNumberWithRange(rating, 1, 5, "Rating");
+  // * Valida el formato requerido y longitud minima de lo contrario lanza un Error.
+  validateArrayWithMinimumLength(genres, 1);
+  validateArrayWithMinimumLength(platforms, 1);
 
-  const genresToAdd = await Genre.findAll({
-    where: { name: genres },
-  });
-
-  if (!genresToAdd || genresToAdd.length !== genres.length)
-    throw Error("One or more non-existent genres");
+  const genresToAdd = await validateGenres(genres);
+  const platformsToAdd = await validatePlatforms(platforms);
 
   const newVideogame = await Videogame.create({
     name,
-    description,
     platforms,
     image,
     released,
     rating,
+    description,
+    genres,
   });
 
+  // * Relacionamos los registros en la tabla de union correspondiente.
   await newVideogame.addGenre(genresToAdd);
+  await newVideogame.addPlatform(platformsToAdd);
 
   return newVideogame;
 };
