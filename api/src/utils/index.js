@@ -1,4 +1,4 @@
-import { Genre, Platform } from "../db";
+const { Genre, Platform } = require("../db");
 
 // * EXPRESIONES REGULARES.
 const noSpecialCharsRegex = /^[a-zA-Z0-9\s]+$/;

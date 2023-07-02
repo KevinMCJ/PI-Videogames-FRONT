@@ -6,6 +6,8 @@ import FilterButton from "./Filter/FilterButton/FilterButton";
 import FilterOptions from "./Filter/FilterOptions/FilterOptions";
 import SortBy from "./SortBy/SortBy";
 import Pagination from "./Pagination/Pagination";
+import FilterSortSection from "./FilterSortSection/FilterSortSection";
+import SelectedOptionsList from "./SelectedOptionsList/SelectedOptionsList";
 
 export {
   NavBar,
@@ -16,4 +18,6 @@ export {
   FilterOptions,
   SortBy,
   Pagination,
+  FilterSortSection,
+  SelectedOptionsList,
 };

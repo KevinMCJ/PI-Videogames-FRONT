@@ -1,78 +1,34 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { createGame } from "../../redux/actions";
 import formValidator from "./validation";
 import styles from "./Form.module.css";
+import { useForm } from "../../hooks/useForm";
+import { SelectedOptionsList } from "../../components";
+
+const MAX_PLATFORMS = 20;
+const initialForm = {
+  name: "",
+  platforms: [],
+  image: "",
+  released: "",
+  rating: "",
+  genres: [],
+  description: "",
+};
 
 const Form = () => {
-  const dispatch = useDispatch();
   const platforms = useSelector((state) => state.platforms);
   const genres = useSelector((state) => state.genres);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    platforms: [],
-    image: "",
-    released: "",
-    rating: "",
-    genres: [],
-    description: "",
-  });
-
-  const [errors, setErrors] = useState({});
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setFormData({ ...formData, [name]: value });
-    setErrors(
-      formValidator({
-        ...formData,
-        [name]: value,
-      })
-    );
-  };
-
-  const handleMultipleSelect = (event) => {
-    let { value, name } = event.target;
-
-    /*
-     * Los select multiples como platforms y genres, guardaran su valor en un array que no
-     * permite tener repeticiones y al menos debe tener 1 valor. Como máximo 10 [hay 19 genres].
-     */
-    if (formData[name].length < 10 && !formData[name].includes(value)) {
-      setFormData({
-        ...formData,
-        [name]: [...formData[name], value],
-      });
-    }
-  };
-
-  const handleList = (event) => {
-    const { innerText, dataset } = event.target;
-    const category = dataset.category;
-
-    const filteredSelect = formData[category].filter(
-      (value) => value !== innerText
-    );
-
-    setFormData({
-      ...formData,
-      [category]: filteredSelect,
-    });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    try {
-      const newGame = formData;
-      dispatch(createGame(newGame)).then(() =>
-        alert(`"${newGame.name}" game created successfully`)
-      );
-    } catch (error) {
-      alert("Error creating a new game: " + error.message);
-    }
-  };
+  const {
+    formData,
+    errors,
+    handleChange,
+    handleMultipleSelect,
+    handleList,
+    handleSubmit,
+  } = useForm(initialForm, formValidator, createGame, "Game");
 
   return (
     <section>
@@ -93,8 +49,9 @@ const Form = () => {
           <label htmlFor="platforms">Platforms</label>
           <select
             name="platforms"
-            onChange={handleMultipleSelect}
+            onChange={(e) => handleMultipleSelect(e, MAX_PLATFORMS)}
             value={formData.platforms}
+            multiple
           >
             {platforms.map((platform) => (
               <option key={platform.id} value={platform.name}>
@@ -102,21 +59,12 @@ const Form = () => {
               </option>
             ))}
           </select>
-          {formData.platforms.length ? (
-            <ul>
-              {formData.platforms.map((platform) => (
-                <li
-                  key={platform}
-                  onClick={handleList}
-                  data-category="platforms"
-                >
-                  {platform}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Select at least one platform for the game.</p>
-          )}
+          <span>Max:{MAX_PLATFORMS}</span>
+          <SelectedOptionsList
+            arrValues={formData.platforms}
+            handleList={handleList}
+            listName="platforms"
+          />
           {errors.platforms && (
             <span className={styles.error}>{errors.platforms}</span>
           )}
@@ -156,6 +104,7 @@ const Form = () => {
             id="genres"
             onChange={handleMultipleSelect}
             value={formData.genres}
+            multiple
           >
             {genres.map((genre) => (
               <option key={genre.id} value={genre.name}>
@@ -163,17 +112,11 @@ const Form = () => {
               </option>
             ))}
           </select>
-          {formData.genres.length ? (
-            <ul>
-              {formData.genres.map((genre) => (
-                <li key={genre} onClick={handleList} data-category="genres">
-                  {genre}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Select at least one genre for the game.</p>
-          )}
+          <SelectedOptionsList
+            arrValues={formData.genres}
+            handleList={handleList}
+            listName="genres"
+          />
           {errors.genres && (
             <span className={styles.error}>{errors.genres}</span>
           )}

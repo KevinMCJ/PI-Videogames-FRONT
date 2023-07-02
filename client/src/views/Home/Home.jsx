@@ -2,15 +2,12 @@ import { useEffect, useState } from "react";
 import {
   CardsContainer,
   SearchBar,
-  FilterButton,
-  SortBy,
   Pagination,
+  FilterSortSection,
 } from "../../components";
-import { useDispatch, useSelector } from "react-redux";
-import { clearAllFilters } from "../../redux/actions";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-  const dispatch = useDispatch();
   const videogames = useSelector((state) => state.copyGames);
   const [gamesToDisplay, setGamesToDisplay] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,18 +29,9 @@ const Home = () => {
   return (
     <div>
       <SearchBar handlePageChange={handlePageChange} />
-      {/* // ! Despues separar este div en un componente para que quede mas bonito */}
-      <div>
-        <FilterButton handlePageChange={handlePageChange} />
-        <SortBy handlePageChange={handlePageChange} />
-        <button onClick={() => dispatch(clearAllFilters())}>
-          Clear All Filters
-        </button>
-      </div>
+      <FilterSortSection handlePageChange={handlePageChange} />
       <CardsContainer videogames={gamesToDisplay} />
-      {/* 
-       // * Si la cantidad de juegos mostrados no son mas que para completar una pagina
-       // * No renderiza el paginado */}
+      {/* // * Si la cantidad de juegos mostrados no es suficiente para completar una página, el paginado no se renderiza.*/}
       {videogames.length > gamesPerPage && (
         <Pagination
           currentPage={currentPage}
