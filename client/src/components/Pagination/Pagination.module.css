@@ -4,6 +4,7 @@
   justify-content: center;
   width: 80%;
   margin: 0 auto;
+  padding: 3rem 0;
   gap: 2rem;
 }
 
@@ -13,4 +14,37 @@
   justify-content: center;
   flex-wrap: wrap;
   padding: 0;
+}
+
+.page_number {
+  font-family: inherit;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: inherit;
+  padding: 0.4rem 1rem;
+  border: 2px solid #2d2414;
+  background-color: #27190c;
+  cursor: pointer;
+}
+
+.arrowBtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #27190c;
+  border: 3px solid #3d3024;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 9999px;
+  padding: 0.6rem;
+}
+
+.btnDisable {
+  background-color: #7d756d81;
+  cursor: default;
+}
+
+.active {
+  background-color: #e1b462;
+  color: #27190c;
 }

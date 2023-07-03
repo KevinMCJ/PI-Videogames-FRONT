@@ -4,6 +4,7 @@ import { Landing, Home, Detail, Form, Error } from "./views";
 import { NavBar } from "./components";
 import { useDispatch } from "react-redux";
 import { getGenres, getPlatforms, getVideogames } from "./redux/actions";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();

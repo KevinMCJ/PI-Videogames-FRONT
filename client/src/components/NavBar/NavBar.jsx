@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./NavBar.module.css";
+import { controllerIcon } from "../../assets/img";
 
 const NavBar = () => {
   return (
     <nav className={styles.nav}>
       <div className={styles.heading}>
+        <img src={controllerIcon} alt="Controller icon" />
         <h1>GamesPI</h1>
       </div>
       <ul className={styles.linkList}>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const SelectedOptionsList = ({ arrValues, handleList, listName}) => {
+const SelectedOptionsList = ({ arrValues, handleList, listName }) => {
   return (
     <>
       {arrValues.length ? (

@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1f140a;
+  box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.51);
+  width: 90%;
+  margin: 4rem auto 1.8rem auto;
+  font-weight: 600;
+  padding: 1rem;
+  border-radius: 20px;
+  font-size: 1rem;
+}
+
+.clearBtn {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+  background: linear-gradient(45deg, #362d24, #241b12);
+  color: inherit;
+  letter-spacing: 1px;
+  gap: 0.5rem;
+  border: 2px solid #3d3024;
+  border-radius: 15px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.clearBtn:hover {
+  background: linear-gradient(to right, #d9a13b, #e1b462);
+  color: #27190c;
+  fill: #1f140a;
+  scale: 1.05;
+  transition: all 0.1s;
+}
+
+.clearBtn img {
+  width: 34px;
+}
+
+.clearBtn:hover img {
+  background-color: #1f140a;
+  border-radius: 9999px;
+}

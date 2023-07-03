@@ -8,8 +8,10 @@ const Card = ({ game }) => {
   return (
     <Link to={`/detail/${id}`}>
       <div className={styles.card}>
-        <h2>{name}</h2>
-        <img src={image} alt={`${name} cover`} />
+        <div className={styles.header_card}>
+          <h2>{name}</h2>
+          <img src={image} alt={`${name} cover`} />
+        </div>
         <ul className={styles.listGenres}>
           {genres && genres.map((genre, index) => <li key={index}>{genre}</li>)}
         </ul>

@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { sortGamesByName, sortGamesByRating } from "../../redux/actions";
+import styles from "./SortBy.module.css";
 
 const SortBy = ({ handlePageChange }) => {
   const dispatch = useDispatch();
@@ -18,17 +19,27 @@ const SortBy = ({ handlePageChange }) => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <div>
         <label htmlFor="sort-name">Sort By Name</label>
-        <select name="sort-name" id="sort-name" onChange={handleSelect}>
+        <select
+          name="sort-name"
+          id="sort-name"
+          onChange={handleSelect}
+          className={styles.select}
+        >
           <option value="asc">Name (a-z)</option>
           <option value="desc">Name (z-a)</option>
         </select>
       </div>
       <div>
         <label htmlFor="sort-rating">Sort By Rating</label>
-        <select name="sort-rating" id="sort-rating" onChange={handleSelect}>
+        <select
+          name="sort-rating"
+          id="sort-rating"
+          onChange={handleSelect}
+          className={styles.select}
+        >
           <option value="highest">Rating (Highest)</option>
           <option value="lowest">Rating (Lowest)</option>
         </select>

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Pagination.module.css";
+import { arrowLeft, arrowRight } from "../../assets/img";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const handlePreviousPage = () => {
@@ -22,17 +23,21 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
   return (
     <div className={styles.pagination}>
-      <button onClick={handlePreviousPage}>Prev</button>
+      <button onClick={handlePreviousPage} className={`${currentPage === 1 && styles.btnDisable} ${styles.arrowBtn}`}>
+        <img src={arrowLeft} alt="Previous page button" />
+      </button>
 
       <ol className={styles.buttonsList}>
         {pageNumbers.map((number) => (
           <li key={number}>
-            <button onClick={() => onPageChange(number)}>{number}</button>
+            <button onClick={() => onPageChange(number)} className={`${styles.page_number} ${currentPage === number && styles.active}`}>{number}</button>
           </li>
         ))}
       </ol>
 
-      <button onClick={handleNextPage}>Next</button>
+      <button onClick={handleNextPage} className={`${currentPage === totalPages && styles.btnDisable} ${styles.arrowBtn}`}>
+        <img src={arrowRight} alt="Next page button" />
+      </button>
     </div>
   );
 };

@@ -70,7 +70,7 @@ const rootReducer = (state = initialState, action) => {
     case SET_LOADING:
       return { ...state, isLoading: action.payload };
     case CLEAR_FILTERS:
-      return { ...state, copyBreeds: state.allGames };
+      return { ...state, copyGames: state.allGames };
     default:
       return { ...state };
   }

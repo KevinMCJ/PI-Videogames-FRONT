@@ -39,64 +39,67 @@ const FilterOptions = ({ setIsOpen, handlePageChange }) => {
   };
 
   return (
-    <section>
-      <div>
-        <h3>GENRES</h3>
-        <ul>
-          {genres.map((genre) => (
+    <section className={styles.modal}>
+      <div className={styles.filters_grid}>
+        <div className={styles.filter_column}>
+          <h3>GENRES</h3>
+          <ul className={styles.genres_list}>
+            {genres.map((genre) => (
+              <li className={styles.list_item}>
+                <input
+                  type="checkbox"
+                  name="genre"
+                  value={genre.name}
+                  checked={selectedGenres.includes(genre.name)}
+                  onChange={handleCheckboxChange}
+                />
+                <label htmlFor="genre">{genre.name}</label>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className={styles.filter_column}>
+          <h3>ORIGIN</h3>
+          <ul className={styles.origin_list}>
+            <li className={styles.list_item}>
+              <input
+                type="checkbox"
+                name="origin"
+                value="all"
+                checked={selectedOrigin === "all"}
+                onChange={handleCheckboxChange}
+              />
+              <label htmlFor="origin">All</label>
+            </li>
             <li>
               <input
                 type="checkbox"
-                name="genre"
-                value={genre.name}
-                checked={selectedGenres.includes(genre.name)}
+                name="origin"
+                value="api"
+                checked={selectedOrigin === "api"}
                 onChange={handleCheckboxChange}
               />
-              <label htmlFor="genre">{genre.name}</label>
+              <label htmlFor="origin">API</label>
             </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h3>ORIGIN</h3>
-        <ul className={styles.origin_list}>
-          <li>
-            <input
-              type="checkbox"
-              name="origin"
-              value="all"
-              checked={selectedOrigin === "all"}
-              onChange={handleCheckboxChange}
-            />
-            <label htmlFor="origin">All</label>
-          </li>
-          <li>
-            <input
-              type="checkbox"
-              name="origin"
-              value="api"
-              checked={selectedOrigin === "api"}
-              onChange={handleCheckboxChange}
-            />
-            <label htmlFor="origin">API</label>
-          </li>
-          <li>
-            <input
-              type="checkbox"
-              name="origin"
-              value="created"
-              checked={selectedOrigin === "created"}
-              onChange={handleCheckboxChange}
-            />
-            <label htmlFor="origin">Created</label>
-          </li>
-        </ul>
+            <li>
+              <input
+                type="checkbox"
+                name="origin"
+                value="created"
+                checked={selectedOrigin === "created"}
+                onChange={handleCheckboxChange}
+              />
+              <label htmlFor="origin">Created</label>
+            </li>
+          </ul>
+        </div>
       </div>
       <button
         onClick={() => {
           handleFilter();
           setIsOpen(false);
         }}
+        className={styles.filterBtn}
       >
         Apply Filter
       </button>

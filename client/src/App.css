@@ -1,0 +1,6 @@
+.App {
+    background: url("./assets/img/app-background.jpg");
+    background-size: cover;
+    min-height: 100vh;
+    color: white;
+}
