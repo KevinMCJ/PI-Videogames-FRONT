@@ -8,7 +8,7 @@ const CardsContainer = ({ videogames }) => {
       {videogames && videogames.length ? (
         videogames.map((game) => <Card key={game.id} game={game} />)
       ) : (
-        <h3>Sin coincidencias...</h3>
+        <h3>No results found...</h3>
       )}
     </section>
   );
