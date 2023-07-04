@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #1f140a;
+  background-color: #25000f;
   box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.51);
   width: 90%;
   margin: 4rem auto 1.8rem auto;
@@ -16,20 +16,18 @@
   display: flex;
   align-items: center;
   padding: 0.4rem 0.8rem;
-  background: linear-gradient(45deg, #362d24, #241b12);
+  background: linear-gradient(45deg, #e20b2b, #dd0a3b);
   color: inherit;
   letter-spacing: 1px;
   gap: 0.5rem;
   border: 2px solid #3d3024;
   border-radius: 15px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 700;
 }
 
 .clearBtn:hover {
-  background: linear-gradient(to right, #d9a13b, #e1b462);
-  color: #27190c;
-  fill: #1f140a;
+  background: linear-gradient(45deg, #ff009f, #c0117d);
   scale: 1.05;
   transition: all 0.1s;
 }
@@ -39,6 +37,7 @@
 }
 
 .clearBtn:hover img {
-  background-color: #1f140a;
+  background-color: #e20b48;
+  border: 2px solid #e20b48b7;
   border-radius: 9999px;
 }

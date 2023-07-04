@@ -21,7 +21,7 @@ const SortBy = ({ handlePageChange }) => {
   return (
     <div className={styles.container}>
       <div>
-        <label htmlFor="sort-name">Sort By Name</label>
+        <label htmlFor="sort-name" className={styles.label}>Sort By Name</label>
         <select
           name="sort-name"
           id="sort-name"
@@ -33,7 +33,7 @@ const SortBy = ({ handlePageChange }) => {
         </select>
       </div>
       <div>
-        <label htmlFor="sort-rating">Sort By Rating</label>
+        <label htmlFor="sort-rating" className={styles.label}>Sort By Rating</label>
         <select
           name="sort-rating"
           id="sort-rating"

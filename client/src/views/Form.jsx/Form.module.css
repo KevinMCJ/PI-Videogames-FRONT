@@ -1,4 +1,118 @@
+.form_section {
+  background: url("../../assets/img/form-background.jpg");
+  background-size: cover;
+  padding: 3rem;
+  min-height: 100vh;
+}
+
+.form_wrapper {
+  margin: auto;
+  width: 60%;
+  max-width: 1200px;
+  padding: 1rem 3rem;
+  border: 2px solid #4d4d6f;
+  border-radius: 20px;
+  background-color: #000127;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form h1 {
+  background: linear-gradient(#2df1f5, #2e0750);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3rem;
+  font-weight: 1000;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.multiple_select_container {
+  display: grid;
+  grid-template-columns: 35% 65%;
+  align-items: center;
+  position: relative;
+  gap: 2rem;
+}
+
+.max_options_span {
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+}
+
+.grid_two_columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  gap: 2rem;
+}
+
+.input_container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input_container input,
+.input_container textarea {
+  outline: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.3rem;
+  font-weight: 400;
+  font-family: inherit;
+  background-color: #fbf2f2e5;
+  border-radius: 8px;
+  -webkit-box-shadow: 7px 11px 37px -1px rgb(12, 164, 139);
+  -moz-box-shadow: 7px 11px 37px -1px rgb(12, 164, 139);
+  box-shadow: 3px 5px 10px -1px rgb(12, 164, 139);
+}
+
+.input_container input:focus,
+.input_container textarea:focus{
+  border: 3px solid #19afa8;
+}
+
+.input_container label {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: linear-gradient(#e82666, #581691);
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.368);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.select {
+  font-size: 1.2rem;
+  padding: 0.2rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #fff;
+  text-align: center;
+}
+
 .error {
   display: block;
   color: red;
+  font-size: 1.4rem;
+  margin: 0.2rem 0;
+}
+
+.error_center {
+  text-align: center;
+}
+
+.submitBtn {
+  padding: 1rem 2rem;
+  margin: 1rem auto;
+  border-radius: 20px;
+  font-size: 1.3rem;
+  font-weight: 700;
 }

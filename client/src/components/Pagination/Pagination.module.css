@@ -22,8 +22,8 @@
   font-weight: 700;
   color: inherit;
   padding: 0.4rem 1rem;
-  border: 2px solid #2d2414;
-  background-color: #27190c;
+  border: 2px solid #48001c;
+  background-color: #360c11;
   cursor: pointer;
 }
 
@@ -31,8 +31,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #27190c;
-  border: 3px solid #3d3024;
+  background-color: #c3002a;
+  border: 3px solid #32010c;
   height: 5rem;
   width: 5rem;
   border-radius: 9999px;
@@ -45,6 +45,6 @@
 }
 
 .active {
-  background-color: #e1b462;
-  color: #27190c;
+  background-color: #ecdee1;
+  color: #1f0309;
 }

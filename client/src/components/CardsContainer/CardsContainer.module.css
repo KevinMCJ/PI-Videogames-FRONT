@@ -4,4 +4,5 @@
   justify-content: center;
   gap: 2.5rem;
   flex-wrap: wrap;
+  min-height: 100vh;
 }

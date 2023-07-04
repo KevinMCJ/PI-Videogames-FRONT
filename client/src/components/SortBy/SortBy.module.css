@@ -3,16 +3,18 @@
   gap: 1.2rem;
 }
 
-label {
+.label {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
   margin-right: 1rem;
 }
 
 .select {
-  padding: 0.2rem;
-  font-size: 1rem;
+  padding: 0.2rem 0.4rem;
+  font-size: 1.1rem;
   font-weight: 700;
   font-family: inherit;
-  background-color: #e7c381;
+  background-color: #fdedf4;
   border: 2px solid #000000;
   border-radius: 8px;
 }

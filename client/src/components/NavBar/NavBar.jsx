@@ -6,10 +6,12 @@ import { controllerIcon } from "../../assets/img";
 const NavBar = () => {
   return (
     <nav className={styles.nav}>
-      <div className={styles.heading}>
-        <img src={controllerIcon} alt="Controller icon" />
-        <h1>GamesPI</h1>
-      </div>
+      <Link to="/home">
+        <div className={styles.heading}>
+          <img src={controllerIcon} alt="Controller icon" />
+          <h1>GameDex</h1>
+        </div>
+      </Link>
       <ul className={styles.linkList}>
         <li>
           <Link to="/home">

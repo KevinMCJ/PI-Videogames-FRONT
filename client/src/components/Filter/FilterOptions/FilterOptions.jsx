@@ -8,6 +8,7 @@ const FilterOptions = ({ setIsOpen, handlePageChange }) => {
   const genres = useSelector((state) => state.genres);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedOrigin, setSelectedOrigin] = useState("all");
+  const originOptions = ["all", "api", "created"];
 
   const handleCheckboxChange = (event) => {
     const { name, value, checked } = event.target;
@@ -52,6 +53,7 @@ const FilterOptions = ({ setIsOpen, handlePageChange }) => {
                   value={genre.name}
                   checked={selectedGenres.includes(genre.name)}
                   onChange={handleCheckboxChange}
+                  className={styles.checkbox}
                 />
                 <label htmlFor="genre">{genre.name}</label>
               </li>
@@ -61,36 +63,12 @@ const FilterOptions = ({ setIsOpen, handlePageChange }) => {
         <div className={styles.filter_column}>
           <h3>ORIGIN</h3>
           <ul className={styles.origin_list}>
-            <li className={styles.list_item}>
-              <input
-                type="checkbox"
-                name="origin"
-                value="all"
-                checked={selectedOrigin === "all"}
-                onChange={handleCheckboxChange}
-              />
-              <label htmlFor="origin">All</label>
-            </li>
-            <li>
-              <input
-                type="checkbox"
-                name="origin"
-                value="api"
-                checked={selectedOrigin === "api"}
-                onChange={handleCheckboxChange}
-              />
-              <label htmlFor="origin">API</label>
-            </li>
-            <li>
-              <input
-                type="checkbox"
-                name="origin"
-                value="created"
-                checked={selectedOrigin === "created"}
-                onChange={handleCheckboxChange}
-              />
-              <label htmlFor="origin">Created</label>
-            </li>
+            {originOptions.map(origin => (
+              <li className={styles.list_item}>
+                <input type="checkbox" name="origin" value={origin} checked={selectedOrigin === origin} onChange={handleCheckboxChange} className={styles.checkbox}/>
+                <label htmlFor="origin">{origin}</label>
+              </li>
+            )) }
           </ul>
         </div>
       </div>

@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   padding: 0.4rem 0.8rem;
-  background: linear-gradient(to right, #251a0f, #302112);
+  background: linear-gradient(45deg, #da0056, #a50243);
   color: inherit;
   letter-spacing: 2px;
   gap: 0.5rem;
@@ -17,12 +17,10 @@
 }
 
 .filterBtn:hover {
-  background: linear-gradient(to right, #d9a13b, #e1b462);
-  color: #27190c;
-  fill: #1f140a;
+  background: linear-gradient(45deg, #ff009f, #c0117d);
   scale: 1.03;
   transition: all 0.1s;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .filterBtn img {
@@ -31,7 +29,8 @@
 }
 
 .filterBtn:hover img {
-  background-color: #1f140a;
+  background-color: #e20b48;
+  border: 2px solid #e20b48b7;
   border-radius: 9999px;
   padding: 0.2rem;
 }

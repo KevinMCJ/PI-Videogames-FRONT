@@ -1,0 +1,31 @@
+.selected_options_list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.list_item {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 80%;
+  background: linear-gradient(to bottom, #2cabc1, #1e7585);
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+
+.list_item img {
+  width: 1.2rem;
+  height: 1.2rem;
+  justify-self: flex-end;
+}
+
+.text {
+  font-size: 1.2rem;
+  text-align: center;
+}

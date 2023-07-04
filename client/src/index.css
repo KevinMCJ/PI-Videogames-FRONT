@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 * {
   box-sizing: border-box;
@@ -8,9 +8,13 @@ body,
 html {
   margin: 0;
   min-height: 100vh;
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+ul {
+  padding: 0;
 }
 
 ul,
@@ -27,6 +31,19 @@ a:link {
 button,
 a {
   cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 8px; /* Make the scrollbar thinner */
+  height: 8px; /* Make the scrollbar thinner */
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 10px; /* Make the scrollbar thumb thinner */
+  height: 10px; /* Make the scrollbar thumb thinner */
+  border-radius: 5px; /* Round the corners of the scrollbar thumb */
+  background-color: #02000b; /* Change the color of the scrollbar thumb */
 }
 
 code {

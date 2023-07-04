@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styles from "./Landing.module.css"
 
 const Landing = () => {
   return (
-    <div>
-      <h1>VideogamesPI</h1>
+    <section className={styles.container}>
+      <h1 className={styles.title}>GameDex</h1>
       <Link to="/home">
-        <button>Ingresar!</button>
+        <button className={styles.btn}>Explore!</button>
       </Link>
-    </div>
+    </section>
   );
 };
 
