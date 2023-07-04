@@ -9,7 +9,7 @@ const CardsContainer = ({ videogames }) => {
         videogames.map((game) => <Card key={game.id} game={game} />)
       ) : (
         <h3>No results found...</h3>
-      )}
+      )}  
     </section>
   );
 };
