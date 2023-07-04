@@ -24,11 +24,17 @@ module.exports = (sequelize) => {
         },
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(2000),
         allowNull: false,
+        validate: {
+          len: {
+            args: [10, 2000],
+            msg: "Description must be between 10 and 2000 characters long",
+          },
+        },
       },
       image: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           isUrl: {

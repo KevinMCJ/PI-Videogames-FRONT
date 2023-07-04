@@ -5,6 +5,7 @@ const { Videogame, Genre, Platform } = require("../db");
 const {
   apiInfoClean,
   validateArrayWithMinimumLength,
+  validateTextInRage,
   validateTextWithoutSpecialChars,
   validateDateFormat,
   validateURL,
@@ -134,6 +135,7 @@ const createVideogame = async (
   validateDateFormat(released);
   validateURL(image);
   validateNumberWithRange(rating, 1, 5, "Rating");
+  validateTextInRage(description, 10, 2000, "Desciption");
   // * Valida el formato requerido y longitud minima de lo contrario lanza un Error.
   validateArrayWithMinimumLength(genres, 1);
   validateArrayWithMinimumLength(platforms, 1);

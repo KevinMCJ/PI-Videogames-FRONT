@@ -1,18 +1,35 @@
 .container {
+  background: url("../../assets/img/landing-background.jpg");
+  background-size: cover;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
+  min-height: 100vh;
 }
 
 .title {
+  padding-left: 2rem;
   font-size: 8rem;
   letter-spacing: 4px;
+  background: linear-gradient(#eaf0f0, #a2a0a4);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .btn {
   font-size: 2rem;
   font-family: inherit;
+  width: 25%;
   padding: 2rem 5rem;
   border-radius: 20px;
+  margin: 0 0 0 15rem;
+  background-color: black;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.btn:hover {
+  transition: all 1s;
+  transform: translate(10px, 10px);
 }

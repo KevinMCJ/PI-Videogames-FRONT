@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { getVideogames } from "../redux/actions";
+import { useNavigate } from "react-router-dom";
 
 export const useForm = (initialForm, validatorFn, actionFn, entityName) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
 
@@ -29,6 +32,12 @@ export const useForm = (initialForm, validatorFn, actionFn, entityName) => {
         [name]: [...formData[name], value],
       });
     }
+    setErrors(
+      validatorFn({
+        ...formData,
+        [name]: value,
+      })
+    );
   };
 
   const handleList = (event, listName) => {
@@ -46,12 +55,16 @@ export const useForm = (initialForm, validatorFn, actionFn, entityName) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    try {
-      dispatch(actionFn(formData)).then(() =>
-        alert(`New ${entityName}" created successfully`)
-      );
-    } catch (error) {
-      alert(`Error creating a new ${entityName}: ${error.message}`);
+    setErrors(validatorFn(formData));
+
+    // * Si el estado errors no tiene propiedades significa que no hay errores y procedemos a hacer el post.
+    if (!Object.keys(errors).length) {
+      dispatch(actionFn(formData)).then(() => {
+        alert(`New ${entityName} created successfully`);
+        dispatch(getVideogames()).then(() => navigate("/home"));
+      });
+    } else {
+      return;
     }
   };
 

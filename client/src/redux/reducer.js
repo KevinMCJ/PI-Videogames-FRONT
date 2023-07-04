@@ -62,7 +62,10 @@ const rootReducer = (state = initialState, action) => {
 
       return { ...state, copyGames: sortedGamesByRating };
     case CREATE_GAME:
-      return { ...state, allGames: [...state.allGames, action.payload] };
+      const updatedGames = [...state.allGames, action.payload];
+      return {
+        ...state,
+        allGames: updatedGames};
     case GET_PLATFORMS:
       return { ...state, platforms: action.payload };
     case GET_GENRES:

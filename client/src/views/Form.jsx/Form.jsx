@@ -54,7 +54,9 @@ const Form = () => {
                 onChange={(e) => handleMultipleSelect(e, MAX_PLATFORMS)}
                 value={formData.platforms}
                 className={styles.select}
+                multiple
               >
+                <option value="" disabled>Select a platform</option>
                 {platforms.map((platform) => (
                   <option key={platform.id} value={platform.name}>
                     {platform.name}
@@ -111,7 +113,9 @@ const Form = () => {
                 onChange={handleMultipleSelect}
                 value={formData.genres}
                 className={styles.select}
+                multiple
               >
+                <option value="" disabled>Select a genre</option>
                 {genres.map((genre) => (
                   <option key={genre.id} value={genre.name}>
                     {genre.name}

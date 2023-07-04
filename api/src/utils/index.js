@@ -31,30 +31,29 @@ const validateArrayWithMinimumLength = (array, minLength) => {
   }
 };
 
-const validateTextWithoutSpecialChars = (
-  text,
-  minLength,
-  maxLength,
-  strField
-) => {
-  if (!noSpecialCharsRegex.test(text)) {
-    throw Error(`${text} cannot include special characters`);
-  }
-  if (text.length > maxLength || text.length < minLength) {
+const validateTextInRage = (text, minLength, maxLength, strField) => {
+  if (text.trim().length > maxLength || text.trim().length < minLength) {
     throw Error(
       `${strField} must be between ${minLength} and ${maxLength} characters long.`
     );
   }
+}
+
+const validateTextWithoutSpecialChars = (text, minLength, maxLength, strField) => {
+  if (!noSpecialCharsRegex.test(text.trim())) {
+    throw Error(`${text} cannot include special characters`);
+  }
+  validateTextInRage(text, minLength, maxLength, strField);
 };
 
 const validateDateFormat = (date) => {
-  if (!dateRegex.test(date)) {
+  if (!dateRegex.test(date.trim())) {
     throw Error("Date format must be: YYYY-MM-DD");
   }
 };
 
 const validateURL = (url) => {
-  if (!urlRegex.test(url)) {
+  if (!urlRegex.test(url.trim())) {
     throw Error("URL must begin with http:// or https://");
   }
 };
@@ -93,6 +92,7 @@ const validatePlatforms = async (platforms) => {
 module.exports = {
   apiInfoClean,
   validateArrayWithMinimumLength,
+  validateTextInRage,
   validateTextWithoutSpecialChars,
   validateDateFormat,
   validateURL,
