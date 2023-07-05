@@ -7,8 +7,7 @@ const endpoint = `https://api.rawg.io/api/genres`;
 const saveGenresData = async () => {
   try {
     const dbLength = await Genre.count();
-
-    // * Para cargar la BDD solo una vez.
+    // ? Para cargar la BDD solo una vez.
     if (dbLength === 0) {
       const { data } = await axios.get(`${endpoint}?key=${API_KEY}`);
 
@@ -41,7 +40,7 @@ const getGenres = async () => {
   });
 
   allGenres = allGenres.map((genre) => ({
-    ...genre.toJSON(),
+    ...genre.dataValues,
     games: genre.games.map((game) => game.name),
   }));
 

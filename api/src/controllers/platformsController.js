@@ -41,7 +41,7 @@ const getPlatforms = async () => {
   });
 
   allPlatforms = allPlatforms.map((platform) => ({
-    ...platform.toJSON(),
+    ...platform.dataValues,
     games: platform.games.map((game) => game.name),
   }));
 

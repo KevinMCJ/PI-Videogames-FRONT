@@ -1,7 +1,8 @@
 require("dotenv").config();
 const axios = require("axios");
 const { API_KEY } = process.env;
-const { Videogame, Genre, Platform } = require("../db");
+const { Op } = require("sequelize");
+const { Videogame } = require("../db");
 const {
   apiInfoClean,
   validateArrayWithMinimumLength,
@@ -10,42 +11,18 @@ const {
   validateDateFormat,
   validateURL,
   validateNumberWithRange,
+} = require("../utils/index");
+const {
+  sequelizeGameConfig,
+  formatDBVideoGame,
   validateGenres,
   validatePlatforms,
-} = require("../utils/index");
+} = require("../utils/dbHelpers");
 const endpoint = `https://api.rawg.io/api/games`;
 
 const getVideogamesDB = async () => {
-  let videogamesDB = await Videogame.findAll({
-    include: [
-      {
-        model: Genre,
-        as: "genres",
-        attributes: ["name"],
-        through: {
-          attributes: [],
-        },
-      },
-      {
-        model: Platform,
-        as: "platforms",
-        attributes: ["name"],
-        through: {
-          attributes: [],
-        },
-      },
-    ],
-  });
-
-  // * Transformo la estructura de "genres" y "platforms"
-  // * Para que coincida con la de los juegos de la API y sea todo uniforme.
-  videogamesDB = videogamesDB.map((game) => ({
-    ...game.toJSON(),
-    genres: game.genres.map((genre) => genre.name),
-    platforms: game.platforms.map((platform) => platform.name),
-    origin: "created",
-  }));
-
+  let videogamesDB = await Videogame.findAll(sequelizeGameConfig);
+  videogamesDB = videogamesDB.map((game) => formatDBVideoGame(game.dataValues));
   return videogamesDB;
 };
 
@@ -53,12 +30,12 @@ const getVideogamesAPI = async () => {
   try {
     const promises = [];
 
-    // * Hay 20 videojuegos por pagina, para traer solo 100. Trabajamos con las 5 primeras paginas.
+    // ? Hay 20 videojuegos por pagina, para traer solo 100. Trabajamos con las 5 primeras paginas.
     for (let page = 1; page <= 5; page++) {
       promises.push(axios.get(`${endpoint}?key=${API_KEY}&page=${page}`));
     }
 
-    // * Resuelvo todas las promesas del array responses.
+    // * Resuelvo todas las promesas del array promises.
     const responses = await Promise.all(promises);
 
     const gamesPerPage = responses.map(({ data }) => {
@@ -66,7 +43,7 @@ const getVideogamesAPI = async () => {
       return cleanPageGames;
     });
 
-    // * Con la funcion flat junto los 20 videojuegos de cada pag en un solo array de objetos.
+    // * Con el metodo flat junto los 20 videojuegos de cada pag en un solo array de objetos.
     const allGamesApi = gamesPerPage.flat();
 
     return allGamesApi;
@@ -78,32 +55,45 @@ const getVideogamesAPI = async () => {
 const getAllVideogames = async () => {
   const apiVideogames = await getVideogamesAPI();
   const dbVideogames = await getVideogamesDB();
-
   return [...apiVideogames, ...dbVideogames];
 };
 
 const getVideogamesByName = async (name) => {
   if (!name || typeof name !== "string") throw Error("No name provided");
-
+  
   name = name.trim().toLowerCase();
-
-  // ? Que no existan juegos con ese nombre no es un error.
-  const allVideogames = await getAllVideogames();
-  const filteredGames = allVideogames.filter((game) =>
+  // ? Que solo trabaje con los 100 que traje de la API y mi BDD.
+  const appGames = await getVideogamesAPI();
+  const filteredGames = appGames.filter((game) =>
     game.name.toLowerCase().includes(name)
   );
 
-  return filteredGames;
+  let gamesDB = await Videogame.findAll({
+    ...sequelizeGameConfig,
+    where: {
+      name: {
+        [Op.iLike]: `%${name}%`,
+      },
+    },
+  });
+
+  if(gamesDB) gamesDB = gamesDB.map((game) => formatDBVideoGame(game.dataValues));
+
+  return [...filteredGames, ...gamesDB];
 };
 
 const getVideogameById = async (id) => {
   if (!id) throw Error("Invalid id provided");
+  let videogame;
 
-  // * Si es numero significa que no es de tipo UUID.
-  if (Number(id)) id = parseInt(id);
-
-  const allVideogames = await getAllVideogames();
-  const videogame = allVideogames.find((game) => game.id === id);
+  // ? Integer => API | Alphanumeric => DB
+  if (Number.isInteger(+id)) {
+    const { data } = await axios.get(`${endpoint}/${id}?key=${API_KEY}`);
+    if (data) videogame = apiInfoClean(data);
+  } else {
+    videogame = await Videogame.findByPk(id, sequelizeGameConfig);
+    if (videogame) videogame = formatDBVideoGame(videogame.dataValues);
+  }
 
   if (!videogame) throw Error("Videogame with the id " + id + " not found");
 
@@ -131,18 +121,20 @@ const createVideogame = async (
     throw Error("Required data missing");
   }
 
+  // ? Validaciones que lanzan su propio error.
   validateTextWithoutSpecialChars(name, 1, 30, "Name");
   validateDateFormat(released);
   validateURL(image);
   validateNumberWithRange(rating, 1, 5, "Rating");
-  validateTextInRage(description, 10, 2000, "Desciption");
-  // * Valida el formato requerido y longitud minima de lo contrario lanza un Error.
+  validateTextInRage(description, 10, 2000, "Description");
   validateArrayWithMinimumLength(genres, 1);
   validateArrayWithMinimumLength(platforms, 1);
 
   const genresToAdd = await validateGenres(genres);
   const platformsToAdd = await validatePlatforms(platforms);
 
+  // ? Si no lanzo excepciones hasta aca, entonces los datos son validos.
+  // * Creamos la instancia y relacionamos los registros en la tabla de union correspondiente.
   const newVideogame = await Videogame.create({
     name,
     platforms,
@@ -152,8 +144,6 @@ const createVideogame = async (
     description,
     genres,
   });
-
-  // * Relacionamos los registros en la tabla de union correspondiente.
   await newVideogame.addGenre(genresToAdd);
   await newVideogame.addPlatform(platformsToAdd);
 

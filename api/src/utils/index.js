@@ -1,5 +1,3 @@
-const { Genre, Platform } = require("../db");
-
 // * EXPRESIONES REGULARES.
 const noSpecialCharsRegex = /^[a-zA-Z0-9\s]+$/;
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // ? YYYY-MM-DD
@@ -11,7 +9,7 @@ const apiInfoClean = (videogame) => {
     id: videogame.id,
     name: videogame.name,
     description: videogame.description
-      ? videogame.description
+      ? videogame.description_raw.split("Español")[0]
       : "No description",
     platforms: videogame.platforms.map(({ platform }) => platform.name),
     image: videogame.background_image,
@@ -59,34 +57,9 @@ const validateURL = (url) => {
 };
 
 const validateNumberWithRange = (number, min, max, strField) => {
-  if (!Number(number) || number > max || number < min) {
+  if (!Number(+number) || number > max || number < min) {
     throw Error(`${strField} be a number between ${min} and ${max}`);
   }
-};
-
-// * Valida que existan instancias que coincidan con TODAS las recibidas.
-const validateGenres = async (genres) => {
-  const genresToAdd = await Genre.findAll({
-    where: { name: genres },
-  });
-
-  if (!genresToAdd || genresToAdd.length !== genres.length) {
-    throw Error("One or more non-existent genres");
-  }
-
-  return genresToAdd;
-};
-
-const validatePlatforms = async (platforms) => {
-  const platformsToAdd = await Platform.findAll({
-    where: { name: platforms },
-  });
-
-  if (!platformsToAdd || platformsToAdd.length !== platforms.length) {
-    throw Error("One or more non-existent platforms");
-  }
-
-  return platformsToAdd;
 };
 
 module.exports = {
@@ -97,6 +70,4 @@ module.exports = {
   validateDateFormat,
   validateURL,
   validateNumberWithRange,
-  validateGenres,
-  validatePlatforms,
 };

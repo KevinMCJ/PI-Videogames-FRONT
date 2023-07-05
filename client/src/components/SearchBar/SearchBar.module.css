@@ -5,11 +5,11 @@
   align-items: center;
   justify-content: center;
   font-family: inherit;
-  margin: 1.5rem 0;
+  margin: 4rem 0 7.5rem 0;
 }
 
 .search label {
-  font-size: 3.4rem;
+  font-size: 4rem;
   font-weight: 1000;
   letter-spacing: 2px;
   background: linear-gradient(to bottom right, #7416c6, #4c0a85);
