@@ -17,7 +17,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     }
   };
 
-  // * Tomando el valor total, creo un array enteros para generar un botones que identifican
+  // * Tomando el valor total, creo un array enteros para generar botones que identifican
   // * cada paging a partir del .map de este [1, 2, 3, 4, 5 ... N]
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 

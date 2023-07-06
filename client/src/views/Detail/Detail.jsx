@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getVideogameById, setLoading } from "../../redux/actions";
+import { LoadingSpinner } from "../../components";
 import styles from "./Detail.module.css";
 import {
   bookIcon,
@@ -25,7 +26,7 @@ const Detail = () => {
   return (
     <section className={styles.detail_section}>
       {isLoading ? (
-        <h3>Loading...</h3>
+        <LoadingSpinner/>
       ) : (
         <div className={styles.detail_wrapper}>
           <div className={styles.detail_container}>

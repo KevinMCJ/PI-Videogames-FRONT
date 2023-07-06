@@ -1,15 +1,24 @@
 import React from "react";
-import { Card } from "../index";
+import { Card, LoadingSpinner } from "../index";
 import styles from "./CardsContainer.module.css";
+import { useSelector } from "react-redux";
 
 const CardsContainer = ({ videogames }) => {
+  const isLoading = useSelector((state) => state.isLoading);
+
   return (
     <section className={styles.container}>
-      {videogames && videogames.length ? (
-        videogames.map((game) => <Card key={game.id} game={game} />)
+      {isLoading ? (
+        <LoadingSpinner />
       ) : (
-        <h3>No results found...</h3>
-      )}  
+        <>
+          {videogames && videogames.length ? (
+            videogames.map((game) => <Card key={game.id} game={game} />)
+          ) : (
+            <h3 className={styles.no_matches}>No results found... ☹️</h3>
+          )}
+        </>
+      )}
     </section>
   );
 };

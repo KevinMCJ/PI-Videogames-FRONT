@@ -5,17 +5,19 @@ const urlRegex =
   /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
 
 const apiInfoClean = (videogame) => {
+  const defaultImageURL = "https://cdn.pixabay.com/photo/2021/09/07/07/11/game-console-6603120_1280.jpg";
+
   return {
     id: videogame.id,
-    name: videogame.name,
-    description: videogame.description
+    name: videogame.name || "???",
+    description: videogame.description_raw
       ? videogame.description_raw.split("Español")[0]
       : "No description",
-    platforms: videogame.platforms.map(({ platform }) => platform.name),
-    image: videogame.background_image,
-    released: videogame.released,
-    rating: videogame.rating,
-    genres: videogame.genres.map((genre) => genre.name),
+    platforms: videogame.platforms?.map(({ platform }) => platform.name) || ["Unknown"],
+    image: videogame.background_image || defaultImageURL,
+    released: videogame.released || "-",
+    rating: videogame.rating || 0,
+    genres: videogame.genres?.map((genre) => genre.name) || ["Unknown"],
     origin: "api",
   };
 };
@@ -57,7 +59,7 @@ const validateURL = (url) => {
 };
 
 const validateNumberWithRange = (number, min, max, strField) => {
-  if (!Number(+number) || number > max || number < min) {
+  if (isNaN(number) || number > max || number < min) {
     throw Error(`${strField} be a number between ${min} and ${max}`);
   }
 };

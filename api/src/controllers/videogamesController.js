@@ -60,14 +60,12 @@ const getAllVideogames = async () => {
 
 const getVideogamesByName = async (name) => {
   if (!name || typeof name !== "string") throw Error("No name provided");
-  
-  name = name.trim().toLowerCase();
-  // ? Que solo trabaje con los 100 que traje de la API y mi BDD.
-  const appGames = await getVideogamesAPI();
-  const filteredGames = appGames.filter((game) =>
-    game.name.toLowerCase().includes(name)
-  );
 
+  name = name.trim().toLowerCase();
+  const resultsPerPage = 15;
+
+  const { data }  = await axios.get(`${endpoint}?key=${API_KEY}&search=${name}&page_size=${resultsPerPage}`);
+  const cleanGames = data.results.map((game) => apiInfoClean(game));
   let gamesDB = await Videogame.findAll({
     ...sequelizeGameConfig,
     where: {
@@ -77,9 +75,9 @@ const getVideogamesByName = async (name) => {
     },
   });
 
-  if(gamesDB) gamesDB = gamesDB.map((game) => formatDBVideoGame(game.dataValues));
+  if (gamesDB) gamesDB = gamesDB.map((game) => formatDBVideoGame(game.dataValues));
 
-  return [...filteredGames, ...gamesDB];
+  return [...cleanGames, ...gamesDB];
 };
 
 const getVideogameById = async (id) => {
@@ -129,25 +127,23 @@ const createVideogame = async (
   validateTextInRage(description, 10, 2000, "Description");
   validateArrayWithMinimumLength(genres, 1);
   validateArrayWithMinimumLength(platforms, 1);
-
   const genresToAdd = await validateGenres(genres);
   const platformsToAdd = await validatePlatforms(platforms);
 
   // ? Si no lanzo excepciones hasta aca, entonces los datos son validos.
   // * Creamos la instancia y relacionamos los registros en la tabla de union correspondiente.
+  const ratingNumber = Number(parseFloat(rating).toFixed(2));
   const newVideogame = await Videogame.create({
     name,
-    platforms,
     image,
     released,
-    rating,
+    rating: ratingNumber,
     description,
-    genres,
   });
   await newVideogame.addGenre(genresToAdd);
   await newVideogame.addPlatform(platformsToAdd);
 
-  return newVideogame;
+  return {...newVideogame.dataValues, genres, platforms };
 };
 
 module.exports = {

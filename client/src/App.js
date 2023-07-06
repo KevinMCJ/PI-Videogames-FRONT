@@ -1,20 +1,21 @@
 import { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation} from "react-router-dom";
 import { Landing, Home, Detail, Form, Error } from "./views";
 import { NavBar } from "./components";
 import { useDispatch } from "react-redux";
-import { getGenres, getPlatforms, getVideogames } from "./redux/actions";
+import { getGenres, getPlatforms, getVideogames, setLoading } from "./redux/actions";
 import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  // * Mejor practica para UX y no cargar cada vez que se cambie de ruta.
+  // * Carga inicial de los datos necesarios para la app.
   useEffect(() => {
+    dispatch(setLoading(true));
     dispatch(getGenres());
     dispatch(getPlatforms());
-    dispatch(getVideogames());
+    dispatch(getVideogames()).then(() => dispatch(setLoading(false)));
   }, [dispatch]);
 
   return (

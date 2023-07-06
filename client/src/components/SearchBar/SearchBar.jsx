@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getVideogamesByName } from "../../redux/actions.js";
-import styles from "./SearchBar.module.css"
+import { getVideogamesByName, setLoading } from "../../redux/actions.js";
+import styles from "./SearchBar.module.css";
 
 const SearchBar = ({ handlePageChange }) => {
   const dispatch = useDispatch();
@@ -13,7 +13,11 @@ const SearchBar = ({ handlePageChange }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(getVideogamesByName(name)).then(() => handlePageChange(1));
+    dispatch(setLoading(true));
+    dispatch(getVideogamesByName(name)).then(() => {
+      dispatch(setLoading(false));
+      handlePageChange(1);
+    });
   };
 
   return (
@@ -27,7 +31,11 @@ const SearchBar = ({ handlePageChange }) => {
           value={name}
           className={styles.input}
         />
-        <button type="button" onClick={handleSubmit} className={styles.searchBtn}>
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className={styles.searchBtn}
+        >
           Search
         </button>
       </div>

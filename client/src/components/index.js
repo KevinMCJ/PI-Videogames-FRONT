@@ -8,6 +8,7 @@ import SortBy from "./SortBy/SortBy";
 import Pagination from "./Pagination/Pagination";
 import FilterSortSection from "./FilterSortSection/FilterSortSection";
 import SelectedOptionsList from "./SelectedOptionsList/SelectedOptionsList";
+import LoadingSpinner from "./LoadingSpinner/LoadingSpinner";
 
 export {
   NavBar,
@@ -20,4 +21,5 @@ export {
   Pagination,
   FilterSortSection,
   SelectedOptionsList,
+  LoadingSpinner,
 };

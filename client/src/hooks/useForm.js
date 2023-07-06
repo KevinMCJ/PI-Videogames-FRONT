@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getVideogames } from "../redux/actions";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * 
+ * @param {object} initialForm - Objeto inicial con las propiedades y valores iniciales del formulario.
+ * @param {function} validatorFn - Funcion que valida los campos del formulario.
+ * @param {function} actionFn - REDUX = ACTION CREATOR que realiza la solicitud POST al servidor.
+ * @param {string} entityName - Nombre descriptivo de la entidad a la que se refiere el formulario.
+ * @returns - Estado vinculado al formulario, sus errores y funcionalidades básicas.
+ */
 export const useForm = (initialForm, validatorFn, actionFn, entityName) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,7 +32,7 @@ export const useForm = (initialForm, validatorFn, actionFn, entityName) => {
   const handleMultipleSelect = (event, maxLength = 10000) => {
     let { value, name } = event.target;
 
-    // * Selects multiple que guardara elementos en un array que no permite tener repeticiones.
+    // * Selects multiples: Guardaran elementos en un array que no permite tener repeticiones.
     if (formData[name].length < maxLength && !formData[name].includes(value)) {
       setFormData({
         ...formData,
@@ -40,6 +47,7 @@ export const useForm = (initialForm, validatorFn, actionFn, entityName) => {
     );
   };
 
+  // * Elimina la opcion seleccionada del array que la contiene al hacerle click.
   const handleList = (event, listName) => {
     const { innerText } = event.target;
 
@@ -53,18 +61,15 @@ export const useForm = (initialForm, validatorFn, actionFn, entityName) => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors(validatorFn(formData));
-
-    // * Si el estado errors no tiene propiedades significa que no hay errores y procedemos a hacer el post.
-    if (!Object.keys(errors).length) {
-      dispatch(actionFn(formData)).then(() => {
-        alert(`New ${entityName} created successfully`);
-        dispatch(getVideogames()).then(() => navigate("/home"));
-      });
-    } else {
-      return;
+    try {
+      await dispatch(actionFn(formData));
+      alert(`NEW ${entityName} created successfully.`);
+      navigate("/home");
+    } catch (error) {
+      alert(`ERROR creating a new ${entityName}: ${error.response.data.error}`);
     }
   };
 

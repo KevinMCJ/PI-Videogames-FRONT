@@ -1,15 +1,17 @@
 .form_section {
   background: url("../../assets/img/form-background.jpg");
   background-size: cover;
+  background-attachment: fixed;
   padding: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 100vh;
 }
 
 .form_wrapper {
-  margin: auto;
-  min-width: 60%;
-  max-width: 1400px;
-  width: max-content;
+  width: 60%;
+  max-width: 80rem;
   padding: 1rem 3rem;
   border: 2px solid #4d4d6f;
   border-radius: 20px;
@@ -117,6 +119,7 @@
 }
 
 .submitBtn {
+  background-color: #2df1f5;
   padding: 1rem 2rem;
   margin: 1rem auto;
   border-radius: 20px;

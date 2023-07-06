@@ -6,6 +6,7 @@ import {
   FilterSortSection,
 } from "../../components";
 import { useSelector } from "react-redux";
+import styles from "./Home.module.css";
 
 const Home = () => {
   const videogames = useSelector((state) => state.copyGames);
@@ -27,7 +28,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <section className={styles.home_section}>
       <SearchBar handlePageChange={handlePageChange} />
       <FilterSortSection handlePageChange={handlePageChange} />
       <CardsContainer videogames={gamesToDisplay} />
@@ -39,7 +40,7 @@ const Home = () => {
           onPageChange={handlePageChange}
         />
       )}
-    </div>
+    </section>
   );
 };
 

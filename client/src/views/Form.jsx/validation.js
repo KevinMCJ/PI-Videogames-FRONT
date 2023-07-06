@@ -28,8 +28,8 @@ const formValidator = (formData) => {
   // * Rating
   if (!trimmedFormData.rating) {
     errors.rating = "Rating required";
-  } else if (!Number(trimmedFormData.rating)) {
-    errors.rating = "Rating must be a number: Integer or floating point";
+  } else if (isNaN(trimmedFormData.rating)) {
+    errors.rating = "Must be a number: Integer or floating point";
   } else if (trimmedFormData.rating < 1 || trimmedFormData.rating > 5) {
     errors.rating = "Rating must be between 1 and 5";
   }

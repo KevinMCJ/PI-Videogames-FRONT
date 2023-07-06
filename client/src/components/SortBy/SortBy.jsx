@@ -27,7 +27,9 @@ const SortBy = ({ handlePageChange }) => {
           id="sort-name"
           onChange={handleSelect}
           className={styles.select}
+          value=""
         >
+          <option value="" disabled>Select option</option>
           <option value="asc">Name (a-z)</option>
           <option value="desc">Name (z-a)</option>
         </select>
@@ -39,7 +41,9 @@ const SortBy = ({ handlePageChange }) => {
           id="sort-rating"
           onChange={handleSelect}
           className={styles.select}
+          value=""
         >
+          <option value="" disabled>Select option</option>
           <option value="highest">Rating (Highest)</option>
           <option value="lowest">Rating (Lowest)</option>
         </select>

@@ -93,7 +93,7 @@ const Form = () => {
             <div className={styles.input_container}>
               <label htmlFor="rating">Rating</label>
               <input
-                type="number"
+                type="text"
                 name="rating"
                 onChange={handleChange}
                 value={formData.rating}
