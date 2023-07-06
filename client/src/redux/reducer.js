@@ -44,6 +44,7 @@ const rootReducer = (state = initialState, action) => {
     case SORT_BY_NAME:
       const sortedGamesByName = [...state.copyGames];
 
+      // * str1.localCompare(str2) retorna negativo/positivo o 0. Comparando alfabeticamente 2 cadenas a b.
       if (action.payload === "asc") {
         sortedGamesByName.sort((a, b) => a.name.localeCompare(b.name));
       } else if (action.payload === "desc") {
@@ -54,6 +55,7 @@ const rootReducer = (state = initialState, action) => {
     case SORT_BY_RATING:
       const sortedGamesByRating = [...state.copyGames];
 
+      // * EJ - B=5 A=4 , 5 - 4 = 1 (positivo) , entonces el sort coloca a b antes que a.
       if (action.payload === "highest") {
         sortedGamesByRating.sort((a, b) => b.rating - a.rating);
       } else if (action.payload === "lowest") {
