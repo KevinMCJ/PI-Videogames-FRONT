@@ -139,6 +139,6 @@ p {
   max-height: 10rem;
   font-weight: 400;
   font-size: 1.4rem;
-  overflow-y: scroll;
+  overflow: auto;
   padding: 0.8rem;
 }

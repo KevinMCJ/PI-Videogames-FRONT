@@ -1,4 +1,4 @@
-const { Genre, Platform } = require("../db");
+const { Videogame, Genre, Platform } = require("../db");
 
 const sequelizeGameConfig = {
   include: [
@@ -32,6 +32,19 @@ const formatDBVideoGame = (game) => {
   };
 };
 
+// ? Verificar si ya existe una instancia con el mismo nombre
+const validateUniqueGame = async (name) => {
+  const existingVideogame = await Videogame.findOne({
+    where: {
+      name: name.trim(),
+    },
+  });
+
+  if(existingVideogame){
+    throw Error("A videogame with this name already exists. Please choose a different name.");
+  }
+};
+
 // ? Validan que existan instancias que coincidan con TODAS las recibidas.
 const validateGenres = async (genres) => {
   const genresToAdd = await Genre.findAll({
@@ -60,6 +73,7 @@ const validatePlatforms = async (platforms) => {
 module.exports = {
   sequelizeGameConfig,
   formatDBVideoGame,
+  validateUniqueGame,
   validateGenres,
   validatePlatforms,
 };

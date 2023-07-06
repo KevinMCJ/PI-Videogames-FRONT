@@ -66,10 +66,10 @@ export const useForm = (initialForm, validatorFn, actionFn, entityName) => {
     setErrors(validatorFn(formData));
     try {
       await dispatch(actionFn(formData));
-      alert(`NEW ${entityName} created successfully.`);
+      alert(`NEW ${entityName} CREATED SUCCESSFULLY.`);
       navigate("/home");
     } catch (error) {
-      alert(`ERROR creating a new ${entityName}: ${error.response.data.error}`);
+      alert(`ERROR CREATING A NEW ${entityName}: ${error.response.data.error}`);
     }
   };
 

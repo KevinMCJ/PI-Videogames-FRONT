@@ -14,7 +14,10 @@ module.exports = (sequelize) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique: {
+          args: true,
+          msg: "A game with this name already exists. Please choose a different name."
+        },
         validate: {
           is: {
             args: /^[a-zA-Z0-9\s]+$/,

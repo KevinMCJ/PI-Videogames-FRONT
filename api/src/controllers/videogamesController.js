@@ -6,7 +6,7 @@ const { Videogame } = require("../db");
 const {
   apiInfoClean,
   validateArrayWithMinimumLength,
-  validateTextInRage,
+  validateTextInRange,
   validateTextWithoutSpecialChars,
   validateDateFormat,
   validateURL,
@@ -15,19 +15,21 @@ const {
 const {
   sequelizeGameConfig,
   formatDBVideoGame,
+  validateUniqueGame,
   validateGenres,
   validatePlatforms,
 } = require("../utils/dbHelpers");
 const endpoint = `https://api.rawg.io/api/games`;
 
 const getVideogamesDB = async () => {
-  let videogamesDB = await Videogame.findAll(sequelizeGameConfig);
-  videogamesDB = videogamesDB.map((game) => formatDBVideoGame(game.dataValues));
-  return videogamesDB;
+  // * Si no encuentra instancias retorna un array vacio.
+  const videogamesDB = await Videogame.findAll(sequelizeGameConfig);
+  const cleanGamesDB = videogamesDB.map((game) => formatDBVideoGame(game.dataValues));
+  return cleanGamesDB;
 };
 
 const getVideogamesAPI = async () => {
-  try {
+  try { // * Para ponerle un mensaje mas descriptivo si el Promise.all lanza una excepcion.
     const promises = [];
 
     // ? Hay 20 videojuegos por pagina, para traer solo 100. Trabajamos con las 5 primeras paginas.
@@ -35,15 +37,13 @@ const getVideogamesAPI = async () => {
       promises.push(axios.get(`${endpoint}?key=${API_KEY}&page=${page}`));
     }
 
-    // * Resuelvo todas las promesas del array promises.
     const responses = await Promise.all(promises);
-
+    // ? GamesPerPage : Array de arrays cada uno con 20 games [objetos] dentro, mapeo la info de estos.
     const gamesPerPage = responses.map(({ data }) => {
       const cleanPageGames = data.results.map((game) => apiInfoClean(game));
       return cleanPageGames;
     });
-
-    // * Con el metodo flat junto los 20 videojuegos de cada pag en un solo array de objetos.
+    // * Con el metodo flat se convierte en un solo array de objetos.
     const allGamesApi = gamesPerPage.flat();
 
     return allGamesApi;
@@ -65,8 +65,8 @@ const getVideogamesByName = async (name) => {
   const resultsPerPage = 15;
 
   const { data }  = await axios.get(`${endpoint}?key=${API_KEY}&search=${name}&page_size=${resultsPerPage}`);
-  const cleanGames = data.results.map((game) => apiInfoClean(game));
-  let gamesDB = await Videogame.findAll({
+  const cleanGamesAPI = data.results.map((game) => apiInfoClean(game));
+  const gamesDB = await Videogame.findAll({
     ...sequelizeGameConfig,
     where: {
       name: {
@@ -74,10 +74,9 @@ const getVideogamesByName = async (name) => {
       },
     },
   });
+  const cleanGamesDB = gamesDB.map((game) => formatDBVideoGame(game.dataValues));
 
-  if (gamesDB) gamesDB = gamesDB.map((game) => formatDBVideoGame(game.dataValues));
-
-  return [...cleanGames, ...gamesDB];
+  return [...cleanGamesAPI, ...cleanGamesDB];
 };
 
 const getVideogameById = async (id) => {
@@ -121,10 +120,11 @@ const createVideogame = async (
 
   // ? Validaciones que lanzan su propio error.
   validateTextWithoutSpecialChars(name, 1, 30, "Name");
+  await validateUniqueGame(name);
   validateDateFormat(released);
   validateURL(image);
   validateNumberWithRange(rating, 1, 5, "Rating");
-  validateTextInRage(description, 10, 2000, "Description");
+  validateTextInRange(description, 10, 2000, "Description");
   validateArrayWithMinimumLength(genres, 1);
   validateArrayWithMinimumLength(platforms, 1);
   const genresToAdd = await validateGenres(genres);
@@ -134,16 +134,16 @@ const createVideogame = async (
   // * Creamos la instancia y relacionamos los registros en la tabla de union correspondiente.
   const ratingNumber = Number(parseFloat(rating).toFixed(2));
   const newVideogame = await Videogame.create({
-    name,
-    image,
-    released,
+    name: name.trim(),
+    image: image.trim(),
+    released: released.trim(),
     rating: ratingNumber,
-    description,
+    description: description.trim(),
   });
   await newVideogame.addGenre(genresToAdd);
   await newVideogame.addPlatform(platformsToAdd);
 
-  return {...newVideogame.dataValues, genres, platforms };
+  return {...newVideogame.dataValues, genres, platforms, origin: "created"};
 };
 
 module.exports = {

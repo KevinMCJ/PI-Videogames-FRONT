@@ -33,8 +33,8 @@ const rootReducer = (state = initialState, action) => {
       const { selectedGenres, selectedOrigin } = action.payload;
 
       /*
-       * Filtrado: Todos los juegos que incluyan todos los generos de "selectedGenres"
-       * Y su origen también coincida lo seleccionado por el usuario. */
+       * Filtrado: Todos los juegos que incluyan TODOS los generos de seleccionados
+       * Y su origen también coincida lo seleccionado por el usuario. Por defecto = all */
       const filteredGames = state.allGames.filter(
         (game) =>
           selectedGenres.every((genre) => game.genres.includes(genre)) &&

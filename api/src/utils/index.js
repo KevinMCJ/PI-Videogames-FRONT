@@ -6,6 +6,7 @@ const urlRegex =
 
 const apiInfoClean = (videogame) => {
   const defaultImageURL = "https://cdn.pixabay.com/photo/2021/09/07/07/11/game-console-6603120_1280.jpg";
+  const defaultArray = ["Unknown"];
 
   return {
     id: videogame.id,
@@ -13,11 +14,15 @@ const apiInfoClean = (videogame) => {
     description: videogame.description_raw
       ? videogame.description_raw.split("Español")[0]
       : "No description",
-    platforms: videogame.platforms?.map(({ platform }) => platform.name) || ["Unknown"],
+    platforms: videogame.platforms && videogame.platforms.length
+      ? videogame.platforms.map(({ platform }) => platform.name)
+      : defaultArray,
     image: videogame.background_image || defaultImageURL,
     released: videogame.released || "-",
     rating: videogame.rating || 0,
-    genres: videogame.genres?.map((genre) => genre.name) || ["Unknown"],
+    genres: videogame.genres && videogame.genres.length
+      ? videogame.genres.map((genre) => genre.name)
+      : defaultArray,
     origin: "api",
   };
 };
@@ -31,7 +36,7 @@ const validateArrayWithMinimumLength = (array, minLength) => {
   }
 };
 
-const validateTextInRage = (text, minLength, maxLength, strField) => {
+const validateTextInRange = (text, minLength, maxLength, strField) => {
   if (text.trim().length > maxLength || text.trim().length < minLength) {
     throw Error(
       `${strField} must be between ${minLength} and ${maxLength} characters long.`
@@ -43,7 +48,7 @@ const validateTextWithoutSpecialChars = (text, minLength, maxLength, strField) =
   if (!noSpecialCharsRegex.test(text.trim())) {
     throw Error(`${text} cannot include special characters`);
   }
-  validateTextInRage(text, minLength, maxLength, strField);
+  validateTextInRange(text, minLength, maxLength, strField);
 };
 
 const validateDateFormat = (date) => {
@@ -60,14 +65,14 @@ const validateURL = (url) => {
 
 const validateNumberWithRange = (number, min, max, strField) => {
   if (isNaN(number) || number > max || number < min) {
-    throw Error(`${strField} be a number between ${min} and ${max}`);
+    throw Error(`${strField} must be a number between ${min} and ${max}`);
   }
 };
 
 module.exports = {
   apiInfoClean,
   validateArrayWithMinimumLength,
-  validateTextInRage,
+  validateTextInRange,
   validateTextWithoutSpecialChars,
   validateDateFormat,
   validateURL,

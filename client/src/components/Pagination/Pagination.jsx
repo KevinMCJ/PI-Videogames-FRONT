@@ -3,6 +3,14 @@ import styles from "./Pagination.module.css";
 import { arrowLeft, arrowRight } from "../../assets/img";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  // * Tomando el valor entero de totalPages, creo un array enteros para renderiza botones con el numero
+  // * que identifica cada pagina.
+  const pageNumbers = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
+
   const handlePreviousPage = () => {
     // * Solo puede retroceder si no llego a la primera pagina.
     if (currentPage > 1) {
@@ -11,15 +19,11 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   };
 
   const handleNextPage = () => {
-    // * Puede avanzar cada pagina, siempre que no llegue a la ultima.
+    // * Puede avanzar de pagina, siempre que no llego a la ultima.
     if (currentPage < totalPages) {
       onPageChange(currentPage + 1);
     }
   };
-
-  // * Tomando el valor total, creo un array enteros para generar botones que identifican
-  // * cada paging a partir del .map de este [1, 2, 3, 4, 5 ... N]
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
     <div className={styles.pagination}>
