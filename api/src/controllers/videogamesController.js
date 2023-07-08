@@ -3,7 +3,7 @@ const axios = require("axios");
 const { API_KEY } = process.env;
 const { Op } = require("sequelize");
 const { Videogame } = require("../db");
-const { ValidationError } = require("../errors");
+const { ValidationError, ApiError } = require("../errors");
 const { apiInfoClean } = require("../utils/index");
 const {
   sequelizeGameConfig,
@@ -44,7 +44,7 @@ const getVideogamesAPI = async () => {
 
     return allGamesApi;
   } catch (error) {
-    throw Error(`Error getting games from API: ${error.message}`);
+    throw new ApiError("Couldn't get games from API");
   }
 };
 
@@ -55,7 +55,7 @@ const getAllVideogames = async () => {
 };
 
 const getVideogamesByName = async (name) => {
-  if (!name || typeof name !== "string") throw Error("No name provided");
+  if (!name || typeof name !== "string") throw new ValidationError("No name provided");
 
   name = name.trim().toLowerCase();
   const resultsPerPage = 15;
@@ -80,7 +80,7 @@ const getVideogamesByName = async (name) => {
 };
 
 const getVideogameById = async (id) => {
-  if (!id) throw Error("Invalid id provided");
+  if (!id) throw new ValidationError("Invalid id provided");
   let videogame;
 
   // ? Integer => API | Alphanumeric => DB
@@ -92,7 +92,7 @@ const getVideogameById = async (id) => {
     if (videogame) videogame = formatDBVideoGame(videogame.dataValues);
   }
 
-  if (!videogame) throw Error("Videogame with the id " + id + " not found");
+  if (!videogame) throw new ValidationError("Videogame with the id " + id + " not found");
 
   return videogame;
 };
