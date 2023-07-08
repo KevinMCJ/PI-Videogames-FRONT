@@ -2,6 +2,7 @@ require("dotenv").config();
 const axios = require("axios");
 const { API_KEY } = process.env;
 const { Genre, Videogame } = require("../db");
+const { ApiError, DataBaseError } = require("../errors");
 const endpoint = `https://api.rawg.io/api/genres`;
 
 const saveGenresData = async () => {
@@ -11,7 +12,7 @@ const saveGenresData = async () => {
     if (dbLength === 0) {
       const { data } = await axios.get(`${endpoint}?key=${API_KEY}`);
 
-      if (!data) throw Error("Couldn't get data from API");
+      if (!data) throw new ApiError("Couldn't get genres from API");
 
       const allGenres = data.results.map((genre) => {
         return {
@@ -23,7 +24,7 @@ const saveGenresData = async () => {
       await Genre.bulkCreate(allGenres);
     }
   } catch (error) {
-    throw Error(`Error saving the genres in the database: ${error.message}`);
+    throw new DataBaseError("Couldn't save genres in DB");
   }
 };
 

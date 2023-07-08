@@ -3,33 +3,29 @@ const axios = require("axios");
 const { API_KEY } = process.env;
 const { Op } = require("sequelize");
 const { Videogame } = require("../db");
-const {
-  apiInfoClean,
-  validateArrayWithMinimumLength,
-  validateTextInRange,
-  validateTextWithoutSpecialChars,
-  validateDateFormat,
-  validateURL,
-  validateNumberWithRange,
-} = require("../utils/index");
+const { ValidationError } = require("../errors");
+const { apiInfoClean } = require("../utils/index");
 const {
   sequelizeGameConfig,
   formatDBVideoGame,
-  validateUniqueGame,
-  validateGenres,
-  validatePlatforms,
+  validateDBGenres,
+  validateDBPlatforms,
+  validateVideogameFields,
 } = require("../utils/dbHelpers");
 const endpoint = `https://api.rawg.io/api/games`;
 
 const getVideogamesDB = async () => {
   // * Si no encuentra instancias retorna un array vacio.
   const videogamesDB = await Videogame.findAll(sequelizeGameConfig);
-  const cleanGamesDB = videogamesDB.map((game) => formatDBVideoGame(game.dataValues));
+  const cleanGamesDB = videogamesDB.map((game) =>
+    formatDBVideoGame(game.dataValues)
+  );
   return cleanGamesDB;
 };
 
 const getVideogamesAPI = async () => {
-  try { // * Para ponerle un mensaje mas descriptivo si el Promise.all lanza una excepcion.
+  try {
+    // * Para ponerle un mensaje mas descriptivo si el Promise.all lanza una excepcion.
     const promises = [];
 
     // ? Hay 20 videojuegos por pagina, para traer solo 100. Trabajamos con las 5 primeras paginas.
@@ -64,7 +60,9 @@ const getVideogamesByName = async (name) => {
   name = name.trim().toLowerCase();
   const resultsPerPage = 15;
 
-  const { data }  = await axios.get(`${endpoint}?key=${API_KEY}&search=${name}&page_size=${resultsPerPage}`);
+  const { data } = await axios.get(
+    `${endpoint}?key=${API_KEY}&search=${name}&page_size=${resultsPerPage}`
+  );
   const cleanGamesAPI = data.results.map((game) => apiInfoClean(game));
   const gamesDB = await Videogame.findAll({
     ...sequelizeGameConfig,
@@ -74,7 +72,9 @@ const getVideogamesByName = async (name) => {
       },
     },
   });
-  const cleanGamesDB = gamesDB.map((game) => formatDBVideoGame(game.dataValues));
+  const cleanGamesDB = gamesDB.map((game) =>
+    formatDBVideoGame(game.dataValues)
+  );
 
   return [...cleanGamesAPI, ...cleanGamesDB];
 };
@@ -97,58 +97,67 @@ const getVideogameById = async (id) => {
   return videogame;
 };
 
-const createVideogame = async (
-  name,
-  description,
-  platforms,
-  image,
-  released,
-  rating,
-  genres
-) => {
-  if (
-    !name ||
-    !description ||
-    !platforms ||
-    !image ||
-    !released ||
-    !rating ||
-    !genres
-  ) {
-    throw Error("Required data missing");
-  }
+const getVideogameDB = async (id) => {
+  if (!id) throw new ValidationError("Invalid id provided");
 
-  // ? Validaciones que lanzan su propio error.
-  validateTextWithoutSpecialChars(name, 1, 30, "Name");
-  await validateUniqueGame(name);
-  validateDateFormat(released);
-  validateURL(image);
-  validateNumberWithRange(rating, 1, 5, "Rating");
-  validateTextInRange(description, 10, 2000, "Description");
-  validateArrayWithMinimumLength(genres, 1);
-  validateArrayWithMinimumLength(platforms, 1);
-  const genresToAdd = await validateGenres(genres);
-  const platformsToAdd = await validatePlatforms(platforms);
+  const videogame = await Videogame.findOne({ where: { id: id } });
+
+  if (!videogame) throw new ValidationError("Created videogame not found");
+
+  return videogame;
+};
+
+const createVideogame = async (name, description, platforms, image, released, rating, genres) => {
+  const validVideogame = validateVideogame(
+    name,
+    description,
+    platforms,
+    image,
+    released,
+    rating,
+    genres
+  );
+  const genresToAdd = await validateDBGenres(genres);
+  const platformsToAdd = await validateDBPlatforms(platforms);
 
   // ? Si no lanzo excepciones hasta aca, entonces los datos son validos.
   // * Creamos la instancia y relacionamos los registros en la tabla de union correspondiente.
-  const ratingNumber = Number(parseFloat(rating).toFixed(2));
-  const newVideogame = await Videogame.create({
-    name: name.trim(),
-    image: image.trim(),
-    released: released.trim(),
-    rating: ratingNumber,
-    description: description.trim(),
-  });
+  const newVideogame = await Videogame.create(validVideogame);
   await newVideogame.addGenre(genresToAdd);
   await newVideogame.addPlatform(platformsToAdd);
 
-  return {...newVideogame.dataValues, genres, platforms, origin: "created"};
+  return {...validVideogame, origin: "created" };
 };
+
+const modifyVideogame = async ({ id, name, description, platforms, image, released, rating, genres }) => {
+  const gameToModify = await getVideogameDB(id);
+  const validFields = validateVideogameFields(name, description, platforms, image, released, rating, genres);
+  const newGenres = await validateDBGenres(genres);
+  const newPlatforms = await validateDBPlatforms(platforms);
+  
+  // * Actualizo los generos y plataformas relacionadas.
+  await gameToModify.update(validFields);
+  await gameToModify.setGenres(newGenres);
+  await gameToModify.setPlatforms(newPlatforms);
+
+  return {id, ...validFields};
+};
+
+const deleteVideogame = async (id) => {
+  const gameToDelete = await getVideogameDB(id);
+  const deletedGame = gameToDelete.dataValues;
+  await gameToDelete.removeGenres();
+  await gameToDelete.removePlatforms();
+  await gameToDelete.destroy();
+  return {id, ...deletedGame};
+}
 
 module.exports = {
   getAllVideogames,
   getVideogamesByName,
   getVideogameById,
+  getVideogameDB,
   createVideogame,
+  modifyVideogame,
+  deleteVideogame,
 };

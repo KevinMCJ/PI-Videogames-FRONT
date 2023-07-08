@@ -1,3 +1,5 @@
+const { ValidationError } = require("../errors");
+
 // * EXPRESIONES REGULARES.
 const noSpecialCharsRegex = /^[a-zA-Z0-9\s]+$/;
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // ? YYYY-MM-DD
@@ -32,41 +34,52 @@ const apiInfoClean = (videogame) => {
 // * Platforms y Genres tienen que ser arrays y tener al menos un elemento para continuar.
 const validateArrayWithMinimumLength = (array, minLength) => {
   if (!Array.isArray(array) || array.length < minLength) {
-    throw Error(`Invalid format or at least ${minLength} element(s) required`);
+    throw new ValidationError(`Invalid array or at least ${minLength} element(s) required`);
   }
+  return array;
 };
 
 const validateTextInRange = (text, minLength, maxLength, strField) => {
-  if (text.trim().length > maxLength || text.trim().length < minLength) {
-    throw Error(
-      `${strField} must be between ${minLength} and ${maxLength} characters long.`
+  const trimmedText = text.trim();
+  if (typeof trimmedText !== "string" || trimmedText.length > maxLength || trimmedText.length < minLength) {
+    throw new ValidationError(
+      `${strField} must be a string between ${minLength} and ${maxLength} characters long.`
     );
   }
+  return trimmedText;
 }
 
 const validateTextWithoutSpecialChars = (text, minLength, maxLength, strField) => {
-  if (!noSpecialCharsRegex.test(text.trim())) {
-    throw Error(`${text} cannot include special characters`);
+  const validText = validateTextInRange(text, minLength, maxLength, strField);
+  if (!noSpecialCharsRegex.test(validText)) {
+    throw new ValidationError(`${text} cannot include special characters`);
   }
-  validateTextInRange(text, minLength, maxLength, strField);
+  return validText;
 };
 
 const validateDateFormat = (date) => {
-  if (!dateRegex.test(date.trim())) {
-    throw Error("Date format must be: YYYY-MM-DD");
+  const trimmedDate = date.trim();
+  if (!dateRegex.test(trimmedDate)) {
+    throw new ValidationError("Date format must be: YYYY-MM-DD");
   }
+  return trimmedDate;
 };
 
 const validateURL = (url) => {
-  if (!urlRegex.test(url.trim())) {
-    throw Error("URL must begin with http:// or https://");
+  const trimmedUrl = url.trim();
+  if (!urlRegex.test(trimmedUrl)) {
+    throw new ValidationError("URL must begin with http:// or https://");
   }
+  return trimmedUrl;
 };
 
 const validateNumberWithRange = (number, min, max, strField) => {
   if (isNaN(number) || number > max || number < min) {
-    throw Error(`${strField} must be a number between ${min} and ${max}`);
+    throw new ValidationError(`${strField} must be a number between ${min} and ${max}`);
   }
+  const parsedNumber = Number(parseFloat(number).toFixed(2));
+
+  return parsedNumber;
 };
 
 module.exports = {

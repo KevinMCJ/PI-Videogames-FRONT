@@ -2,6 +2,7 @@ require("dotenv").config();
 const axios = require("axios");
 const { API_KEY } = process.env;
 const { Platform, Videogame } = require("../db");
+const { ApiError, DataBaseError }= require("../errors");
 const endpoint = `https://api.rawg.io/api/platforms`;
 
 const savePlatformsData = async () => {
@@ -12,7 +13,7 @@ const savePlatformsData = async () => {
     if (dbLength === 0) {
       const { data } = await axios.get(`${endpoint}?key=${API_KEY}`);
 
-      if (!data) throw Error("Couldn't get data from API");
+      if (!data) throw new ApiError("Couldn't get platforms from API");
 
       const allPlatforms = data.results.map((platform) => {
         return {
@@ -24,7 +25,7 @@ const savePlatformsData = async () => {
       await Platform.bulkCreate(allPlatforms);
     }
   } catch (error) {
-    throw Error(`Error saving the Platforms in the database: ${error.message}`);
+    throw new DataBaseError("Couldn't save platforms in DB");
   }
 };
 

@@ -7,9 +7,9 @@ const getGenresHandler = async (req, res) => {
   try {
     await saveGenresData();
     const genres = await getGenres();
-    res.status(201).json(genres);
+    res.status(200).json(genres);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(error.statusCode || 500).json({[error.name]: error.message});
   }
 };
 
