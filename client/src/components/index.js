@@ -9,6 +9,7 @@ import Pagination from "./Pagination/Pagination";
 import FilterSortSection from "./FilterSortSection/FilterSortSection";
 import SelectedOptionsList from "./SelectedOptionsList/SelectedOptionsList";
 import LoadingSpinner from "./LoadingSpinner/LoadingSpinner";
+import EditGame from "./EditGame/EditGame";
 
 export {
   NavBar,
@@ -22,4 +23,5 @@ export {
   FilterSortSection,
   SelectedOptionsList,
   LoadingSpinner,
+  EditGame,
 };

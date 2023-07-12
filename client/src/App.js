@@ -3,7 +3,7 @@ import { Routes, Route, useLocation} from "react-router-dom";
 import { Landing, Home, Detail, Form, Error } from "./views";
 import { NavBar } from "./components";
 import { useDispatch } from "react-redux";
-import { getGenres, getPlatforms, getVideogames, setLoading } from "./redux/actions";
+import { getGenres, getPlatforms, getVideogames, setLoading } from "./redux/actions/appActions";
 import "./App.css";
 
 function App() {

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getVideogameById, setLoading } from "../../redux/actions";
+import { getVideogameById, setLoading } from "../../redux/actions/appActions";
 import { LoadingSpinner } from "../../components";
 import styles from "./Detail.module.css";
 import {
@@ -15,8 +15,8 @@ import {
 const Detail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const game = useSelector((state) => state.game);
-  let isLoading = useSelector((state) => state.isLoading);
+  const game = useSelector((state) => state.app.game);
+  let isLoading = useSelector((state) => state.app.isLoading);
 
   useEffect(() => {
     dispatch(setLoading(true));

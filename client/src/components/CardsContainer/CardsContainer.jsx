@@ -4,7 +4,7 @@ import styles from "./CardsContainer.module.css";
 import { useSelector } from "react-redux";
 
 const CardsContainer = ({ videogames }) => {
-  const isLoading = useSelector((state) => state.isLoading);
+  const isLoading = useSelector((state) => state.app.isLoading);
 
   return (
     <section className={styles.container}>

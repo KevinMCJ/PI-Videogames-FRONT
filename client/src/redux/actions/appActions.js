@@ -5,11 +5,13 @@ const baseURL = "http://localhost:3001";
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
 export const GET_VIDEOGAMES_BY_NAME = "GET_VIDEOGAMES_BY_NAME";
 export const GET_VIDEOGAME_BY_ID = "GET_VIDEOGAME_BY_ID";
+export const SET_GAME = "SET_GAME";
 export const FILTER_GAMES = "FILTER_GAMES";
 export const SORT_BY_NAME = "SORT_BY_NAME";
 export const SORT_BY_RATING = "SORT_BY_RATING";
 export const CLEAR_FILTERS = "CLEAR_FILTERS";
 export const CREATE_GAME = "CREATE_GAME";
+export const EDIT_GAME = "EDIT_GAME";
 export const GET_PLATFORMS = "GET_PLATFORMS";
 export const GET_GENRES = "GET_GENRES";
 export const SET_LOADING = "SET_LOADING";
@@ -51,6 +53,13 @@ export const getVideogameById = (id) => {
   };
 };
 
+export const setGame = (game) => {
+  return {
+    type: SET_GAME,
+    payload: game,
+  };
+};
+
 export const filterGames = (arrFilters) => {
   return {
     type: FILTER_GAMES,
@@ -79,6 +88,18 @@ export const createGame = (newGame) => {
 
     dispatch({
       type: CREATE_GAME,
+      payload: data,
+    });
+  };
+};
+
+export const editGame = (id, editedGame) => {
+  return async (dispatch) => {
+    const endpoint = `${baseURL}/videogames/${id}`;
+    const { data } = await axios.put(endpoint, editedGame);
+    
+    dispatch({
+      type: EDIT_GAME,
       payload: data,
     });
   };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getVideogamesByName, setLoading } from "../../redux/actions.js";
+import { getVideogamesByName, setLoading } from "../../redux/actions/appActions.js";
 import styles from "./SearchBar.module.css";
 
 const SearchBar = ({ handlePageChange }) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { FilterButton, SortBy } from "../index";
 import { useDispatch } from "react-redux";
-import { clearAllFilters } from "../../redux/actions";
+import { clearAllFilters } from "../../redux/actions/appActions";
 import styles from "./FilterSortSection.module.css";
 import { clearIcon } from "../../assets/img";
 

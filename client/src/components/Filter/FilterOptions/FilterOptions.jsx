@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterGames } from "../../../redux/actions";
+import { filterGames } from "../../../redux/actions/appActions";
 import styles from "./FilterOptions.module.css";
 
 const FilterOptions = ({ setIsOpen, handlePageChange }) => {
   const dispatch = useDispatch();
-  const genres = useSelector((state) => state.genres);
+  const genres = useSelector((state) => state.app.genres);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedOrigin, setSelectedOrigin] = useState("all");
   const originOptions = ["all", "api", "created"];

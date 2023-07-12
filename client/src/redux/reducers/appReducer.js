@@ -7,10 +7,12 @@ const {
   SORT_BY_RATING,
   CLEAR_FILTERS,
   CREATE_GAME,
+  EDIT_GAME,
   GET_PLATFORMS,
   GET_GENRES,
   SET_LOADING,
-} = require("./actions");
+  SET_GAME,
+} = require("../actions/appActions");
 
 const initialState = {
   isLoading: false,
@@ -21,13 +23,15 @@ const initialState = {
   genres: [],
 };
 
-const rootReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_VIDEOGAMES:
       return { ...state, allGames: action.payload, copyGames: action.payload };
     case GET_VIDEOGAMES_BY_NAME:
       return { ...state, copyGames: action.payload };
     case GET_VIDEOGAME_BY_ID:
+      return { ...state, game: action.payload };
+    case SET_GAME:
       return { ...state, game: action.payload };
     case FILTER_GAMES:
       const { selectedGenres, selectedOrigin } = action.payload;
@@ -70,6 +74,19 @@ const rootReducer = (state = initialState, action) => {
         allGames: updatedGames,
         copyGames: updatedGames,
       };
+    case EDIT_GAME:
+      const { modifiedGame } = action.payload;
+      const updatedAllGames = state.allGames.map((game) =>
+        game.id === modifiedGame.id ? modifiedGame : game
+      );
+      const updatedCopyGames = state.copyGames.map((game) =>
+        game.id === modifiedGame.id ? modifiedGame : game
+      );
+      return {
+        ...state,
+        allGames: updatedAllGames,
+        copyGames: updatedCopyGames,
+      };
     case GET_PLATFORMS:
       return { ...state, platforms: action.payload };
     case GET_GENRES:
@@ -83,4 +100,4 @@ const rootReducer = (state = initialState, action) => {
   }
 };
 
-export default rootReducer;
+export default appReducer;

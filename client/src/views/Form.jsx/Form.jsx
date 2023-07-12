@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { createGame } from "../../redux/actions";
-import formValidator from "./validation";
+import { createGame } from "../../redux/actions/appActions";
+import formValidator from "../../utils/validation";
 import styles from "./Form.module.css";
 import { useForm } from "../../hooks/useForm";
 import { SelectedOptionsList } from "../../components";
@@ -18,8 +18,8 @@ const initialForm = {
 };
 
 const Form = () => {
-  const platforms = useSelector((state) => state.platforms);
-  const genres = useSelector((state) => state.genres);
+  const platforms = useSelector((state) => state.app.platforms);
+  const genres = useSelector((state) => state.app.genres);
 
   const {
     formData,

@@ -8,6 +8,7 @@ import gamepadIcon from "./gamepad-icon.svg";
 import calendarIcon from "./calendar-icon.svg";
 import ratingIcon from "./rating-icon.svg";
 import notesIcon from "./notes-icon.svg";
+import editIcon from "./edit-icon.svg";
 
 export {
   controllerIcon,
@@ -20,4 +21,5 @@ export {
   calendarIcon,
   ratingIcon,
   notesIcon,
+  editIcon,
 };

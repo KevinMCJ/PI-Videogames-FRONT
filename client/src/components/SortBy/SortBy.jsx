@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { sortGamesByName, sortGamesByRating } from "../../redux/actions";
+import { sortGamesByName, sortGamesByRating } from "../../redux/actions/appActions";
 import styles from "./SortBy.module.css";
 
 const SortBy = ({ handlePageChange }) => {
