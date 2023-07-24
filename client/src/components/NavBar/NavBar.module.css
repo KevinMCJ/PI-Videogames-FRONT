@@ -4,8 +4,6 @@
   justify-content: space-between;
   background-color: rgba(59, 62, 84, 0.98);
   padding: 3rem 2rem;
-  -webkit-box-shadow: 0px 13px 43px -5px rgba(0, 0, 0, 0.806);
-  -moz-box-shadow: 0px 13px 43px -5px rgba(0, 0, 0, 0.806);
   box-shadow: 0px 13px 43px -5px rgba(0, 0, 0, 0.806);
 }
 
@@ -13,6 +11,11 @@
   display: flex;
   align-items: center;
   gap: 2rem;
+}
+
+.heading img {
+  width: 4rem;
+  height: 4rem;
 }
 
 .heading h1 {
@@ -27,4 +30,10 @@
 
 .linkList li {
   font-size: 2rem;
+}
+
+@media screen and (max-width: 650px) {
+  .linkList {
+    display: none;
+  }
 }

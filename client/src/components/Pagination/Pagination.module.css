@@ -37,6 +37,11 @@
   padding: 0.6rem;
 }
 
+.arrowBtn img {
+  width: 4rem;
+  height: 4rem;
+} 
+
 .btnDisable {
   background-color: #7d756d81;
   cursor: default;

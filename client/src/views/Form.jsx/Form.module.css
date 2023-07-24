@@ -37,7 +37,7 @@
 
 .multiple_select_container {
   display: grid;
-  grid-template-columns: 35% 65%;
+  grid-template-columns: 35% auto;
   align-items: center;
   position: relative;
   gap: 2rem;
@@ -71,8 +71,6 @@
   font-family: inherit;
   background-color: #fbf2f2e5;
   border-radius: 8px;
-  -webkit-box-shadow: 7px 11px 37px -1px rgb(12, 164, 139);
-  -moz-box-shadow: 7px 11px 37px -1px rgb(12, 164, 139);
   box-shadow: 3px 5px 10px -1px rgb(12, 164, 139);
 }
 

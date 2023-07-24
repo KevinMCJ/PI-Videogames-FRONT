@@ -6,6 +6,7 @@ import formValidator from "../../utils/validation";
 import { useForm } from "../../hooks/useForm";
 import { editGame } from "../../redux/actions/appActions";
 import { SelectedOptionsList } from "../../components";
+import { setCardEdit } from "../../redux/actions/utilsActions";
 
 const MAX_PLATFORMS = 20;
 
@@ -35,10 +36,15 @@ const EditGame = () => {
     try {
       await dispatch(editGame(gameToEdit.id, formData));
       alert(`Game edited succesfully.`);
+      closeModal();
     } catch (error) {
-      alert(`Error editing game: ${error.message}`);
+      alert(`Error editing game. Try again later`);
     }
   };
+
+  const closeModal = () => {
+    dispatch(setCardEdit(false))
+  }
 
   return (
     <div className={styles.edit_modal}>
@@ -46,6 +52,7 @@ const EditGame = () => {
         <LoadingSpinner />
       ) : (
         <div className={styles.form_wrapper}>
+          <button className={styles.close_modal} onClick={closeModal}>X</button>
           <form onSubmit={handleSubmit} className={styles.form}>
             <h1>{formData.name}</h1>
             <div className={styles.input_container}>

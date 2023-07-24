@@ -1,3 +1,11 @@
+@-webkit-keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @keyframes spinner {
   0% {
     transform: rotate(0deg);
@@ -12,5 +20,6 @@
   border: 20px solid #ff1b1b; /* Light grey */
   border-top: 10px solid #383636; /* Black */
   border-radius: 50%;
+  -webkit-animation: spinner 1.5s linear infinite;
   animation: spinner 1.5s linear infinite;
 }

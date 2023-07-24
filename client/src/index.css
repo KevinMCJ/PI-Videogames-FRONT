@@ -35,6 +35,8 @@ a {
 
 button {
   outline: none;
+  border: none;
+  line-height: 1.4;
 }
 
 ::-webkit-scrollbar {
@@ -53,4 +55,16 @@ button {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@media screen and (max-width: 1700px) {
+  :root{
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  :root{
+    font-size: 9px;
+  }
 }

@@ -13,7 +13,7 @@ const Card = ({ game }) => {
   const navigate = useNavigate();
 
   const handleEditClick = () => {
-    dispatch(setCardEdit());
+    dispatch(setCardEdit(true));
     dispatch(setGame(game));
   };
 

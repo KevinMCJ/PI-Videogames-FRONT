@@ -12,7 +12,7 @@
   gap: 0.5rem;
   border: 2px solid #3d3024;
   border-radius: 15px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 
@@ -33,4 +33,11 @@
   border: 2px solid #e20b48b7;
   border-radius: 9999px;
   padding: 0.2rem;
+}
+
+@media screen and (max-width: 650px) {
+  .filterBtn {
+    justify-content: center;
+    width: 100%;
+  }
 }

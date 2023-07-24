@@ -1,6 +1,8 @@
 .container {
   display: flex;
   gap: 1.2rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .label {
@@ -18,4 +20,54 @@
   border: 2px solid #000000;
   border-radius: 8px;
   text-align: center;
+  width: 12rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .container div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    grid-row: 1;
+    grid-column: 1 / -1;
+  }
+
+  .container div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .label {
+    text-align: center;
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .container div {
+    width: 100%;
+  }
+
+  .select {
+    width: 100%;
+    padding: 1rem 0;
+  }
 }

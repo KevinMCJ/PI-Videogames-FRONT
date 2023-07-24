@@ -10,6 +10,7 @@
   padding: 1rem;
   border-radius: 20px;
   font-size: 1rem;
+  gap: 2rem;
 }
 
 .clearBtn {
@@ -22,7 +23,7 @@
   gap: 0.5rem;
   border: 2px solid #3d3024;
   border-radius: 15px;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 
@@ -33,11 +34,40 @@
 }
 
 .clearBtn img {
-  width: 34px;
+  width: 4rem;
+  height: 4rem;
 }
 
 .clearBtn:hover img {
   background-color: #e20b48;
   border: 2px solid #e20b48b7;
   border-radius: 9999px;
+}
+
+
+@media screen and (max-width: 1200px) {
+  .clearBtn {
+    width: fit-content;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .container{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .clearBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .container{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
 }

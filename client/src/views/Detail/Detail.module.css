@@ -1,3 +1,5 @@
+/* ! ARREGLAR , CAMBIE ALGUNOS ESTILOS Y NO SE VE SIMETRICO COMO ANTES. */
+
 .detail_section {
   min-height: 100vh;
   display: flex;
@@ -11,16 +13,15 @@
   max-width: 120rem;
   background: linear-gradient(45deg, #434343, #1b1b1b);
   border-radius: 20px;
-  -webkit-box-shadow: 0px 2px 36px -5px rgba(51, 51, 51, 0.945);
-  -moz-box-shadow: 0px 2px 36px -5px rgba(51, 51, 51, 0.945);
   box-shadow: 0px 2px 36px -5px rgba(51, 51, 51, 0.945);
   padding: 2rem;
 }
 
 .detail_container {
   display: grid;
-  grid-template-columns: 40% 60%;
-  grid-template-rows: 70% 30%;
+  grid-template-columns: 40% auto;
+  grid-template-rows: 70% auto;
+  -moz-column-gap: 2rem;
   column-gap: 2rem;
   /* * 900px => 1rem = 16px */
   max-height: 56.25rem;
@@ -29,8 +30,8 @@
 .info_container {
   display: flex;
   flex-direction: column;
-  align-content: center;
   justify-self: center;
+  height: 100%;
 }
 
 .info_container h1 {
@@ -64,8 +65,10 @@
 
 .flex_info_wrapper {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
   margin: auto 0;
+  -moz-column-gap: 2rem;
   column-gap: 2rem;
   max-height: 100%;
 }
@@ -80,11 +83,9 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
-  height: 14rem;
   gap: 1.2rem;
+  height: 100%;
   background-color: #92929282;
-  -webkit-box-shadow: inset 0px 0px 43px 2px rgba(0, 0, 0, 0.562);
-  -moz-box-shadow: inset 0px 0px 43px 2px rgba(0, 0, 0, 0.562);
   box-shadow: inset 0px 0px 43px 2px rgba(0, 0, 0, 0.562);
   padding: 0.5rem 0.8rem;
   border-radius: 8px;
@@ -105,12 +106,12 @@
   display: block;
   height: 100%;
   width: 100%;
+  -o-object-fit: cover;
   object-fit: cover;
+  -o-object-position: center;
   object-position: center;
   border-radius: 20px;
   border: 2px solid #545a81;
-  -webkit-box-shadow: inset 0px 0px 168px -56px rgba(15, 15, 15, 1);
-  -moz-box-shadow: inset 0px 0px 168px -56px rgba(15, 15, 15, 1);
   box-shadow: inset 0px 0px 168px -56px rgba(15, 15, 15, 1);
   overflow: hidden;
 }

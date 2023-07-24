@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { sortGamesByName, sortGamesByRating } from "../../redux/actions/appActions";
 import styles from "./SortBy.module.css";
 
 const SortBy = ({ handlePageChange }) => {
   const dispatch = useDispatch();
+  const [selectedValues, setSelectedValues] = useState({});
 
   const handleSelect = (event) => {
     const { name, value } = event.target;
@@ -15,6 +16,7 @@ const SortBy = ({ handlePageChange }) => {
     } else if (name === "sort-rating") {
       dispatch(sortGamesByRating(value));
     }
+    setSelectedValues((prevValues) => ({ ...prevValues, [name]: value }));
     handlePageChange(1);
   };
 
@@ -27,9 +29,9 @@ const SortBy = ({ handlePageChange }) => {
           id="sort-name"
           onChange={handleSelect}
           className={styles.select}
-          value=""
+          value={selectedValues["sort-name"] || "Select an option"}
         >
-          <option value="" disabled>Select option</option>
+          <option value="">Select option</option>
           <option value="asc">Name (a-z)</option>
           <option value="desc">Name (z-a)</option>
         </select>
@@ -41,9 +43,9 @@ const SortBy = ({ handlePageChange }) => {
           id="sort-rating"
           onChange={handleSelect}
           className={styles.select}
-          value=""
+          value={selectedValues["sort-rating"] || "Select an option"}
         >
-          <option value="" disabled>Select option</option>
+          <option value="">Select option</option>
           <option value="highest">Rating (Highest)</option>
           <option value="lowest">Rating (Lowest)</option>
         </select>

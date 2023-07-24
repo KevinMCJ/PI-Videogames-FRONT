@@ -22,6 +22,18 @@
   border-radius: 20px;
   background-color: #000127;
   overflow: auto;
+  position: relative;
+}
+
+.close_modal{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20%;
+  height: 4rem;
+  background-color: red;
+  border: none;
+  color: #19afa8;
 }
 
 .form {
