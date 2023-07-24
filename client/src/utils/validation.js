@@ -8,7 +8,7 @@ const formValidator = (formData) => {
   const errors = {};
   const trimmedFormData = {
     name: formData.name.trim(),
-    rating: formData.rating.trim(),
+    rating: formData.rating,
     released: formData.released.trim(),
     image: formData.image.trim(),
     description: formData.description.trim(),
