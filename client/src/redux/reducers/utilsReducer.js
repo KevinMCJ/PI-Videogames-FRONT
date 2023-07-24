@@ -7,7 +7,7 @@ const initialState = {
 const utilsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_EDITING:
-      return { ...state, isEditing: true };
+      return { ...state, isEditing: action.payload };
     default:
       return { ...state };
   }
