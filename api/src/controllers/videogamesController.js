@@ -108,7 +108,7 @@ const getVideogameDB = async (id) => {
 };
 
 const createVideogame = async (name, description, platforms, image, released, rating, genres) => {
-  const validVideogame = validateVideogame(
+  const validVideogame = validateVideogameFields(
     name,
     description,
     platforms,
@@ -140,7 +140,7 @@ const modifyVideogame = async ({ id, name, description, platforms, image, releas
   await gameToModify.setGenres(newGenres);
   await gameToModify.setPlatforms(newPlatforms);
 
-  return {id, ...validFields};
+  return {id, ...validFields, origin: "created"};
 };
 
 const deleteVideogame = async (id) => {
