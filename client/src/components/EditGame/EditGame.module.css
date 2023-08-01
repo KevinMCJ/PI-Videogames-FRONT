@@ -16,13 +16,13 @@
 .form_wrapper {
   height: 95%;
   width: 50%;
-  max-width: 80rem;
+  max-width: 70rem;
   padding: 1rem 3rem;
-  border: 2px solid #4d4d6f;
-  border-radius: 20px;
-  background-color: #000127;
+  border: 1px solid black;
+  background-color: rgb(20, 20, 20);
   overflow: auto;
   position: relative;
+  max-height: 100rem;
 }
 
 .close_modal{
@@ -31,19 +31,29 @@
   right: 0;
   width: 20%;
   height: 4rem;
-  background-color: red;
+  background-color: black;
   border: none;
-  color: #19afa8;
+  font-size: 2rem;
+  color: white;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  border-color: rgb(100, 94, 94);
+}
+
+.close_modal:hover{
+  background-color: #cf0b2c;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
   gap: 2rem;
 }
 
 .form h1 {
-  background: linear-gradient(#2df1f5, #2e0750);
+  background: linear-gradient(#fd4665, #6e052d);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -89,22 +99,22 @@
   font-family: inherit;
   background-color: #fbf2f2e5;
   border-radius: 8px;
-  -webkit-box-shadow: 7px 11px 37px -1px rgb(12, 164, 139);
-  -moz-box-shadow: 7px 11px 37px -1px rgb(12, 164, 139);
-  box-shadow: 3px 5px 10px -1px rgb(12, 164, 139);
+  -webkit-box-shadow: 7px 11px 37px -1px rgb(82, 4, 40);
+  -moz-box-shadow: 7px 11px 37px -1px rgb(82, 4, 40);
+  box-shadow: 3px 5px 10px -1px rgb(82, 4, 40);
 }
 
 .input_container input:focus,
 .input_container textarea:focus {
-  border: 3px solid #19afa8;
+  border: 3px solid #c51a45;
 }
 
 .input_container label {
   font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: 2px;
-  background: linear-gradient(#e82666, #581691);
-  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.368);
+  background: linear-gradient(#e82626, #0e0218);
+  text-shadow: 1px 1px 1px rgba(226, 108, 108, 0.849);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -113,9 +123,10 @@
 .select {
   font-size: 1.2rem;
   padding: 0.2rem;
-  border: 1px solid #ccc;
   border-radius: 3px;
-  background-color: #e1e4ffcc;
+  border: 1px solid black;
+  background-color: #01000a9f;
+  color: white;
   text-align: center;
 }
 
@@ -137,10 +148,18 @@
 }
 
 .submitBtn {
-  background-color: #2df1f5;
+  background-color: #000000;
   padding: 1rem 2rem;
   margin: 1rem auto;
+  color: white;
   border-radius: 20px;
   font-size: 1.3rem;
   font-weight: 700;
+}
+
+.submitBtn:hover{
+  transform: scale(1.05);
+  background-color: #c51a45;
+  border: 2px solid #cf0b2c;
+  transition: all 0.1s;
 }
