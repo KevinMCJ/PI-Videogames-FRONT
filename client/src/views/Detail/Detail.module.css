@@ -1,6 +1,8 @@
 /* ! ARREGLAR , CAMBIE ALGUNOS ESTILOS Y NO SE VE SIMETRICO COMO ANTES. */
 
 .detail_section {
+  background: url("../../assets/img/app-background.webp");
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   align-items: center;

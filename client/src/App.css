@@ -1,6 +1,3 @@
 .App {
-    background: url("./assets/img/app-background.webp");
-    background-size: cover;
-    min-height: 100vh;
     color: white;
 }

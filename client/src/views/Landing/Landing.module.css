@@ -24,7 +24,8 @@
 .btn {
   font-size: 2rem;
   font-family: inherit;
-  width: 25%;
+  width: fit-content;
+  text-transform: uppercase;
   padding: 2rem 5rem;
   border-radius: 20px;
   margin: 0 0 0 15rem;

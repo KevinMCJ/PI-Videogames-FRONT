@@ -36,15 +36,13 @@ function App() {
         <Route path="/create" element={<Form />} />
         <Route path="*" element={<Error />} />
       </Routes>
-      <>
-        {alert && (
-          <CustomAlert
-            message={alert.message}
-            time={alert.time}
-            status={alert.status}
-          />
-        )}
-      </>
+      {alert && (
+        <CustomAlert
+          message={alert.message}
+          time={alert.time}
+          status={alert.status}
+        />
+      )}
     </div>
   );
 }
