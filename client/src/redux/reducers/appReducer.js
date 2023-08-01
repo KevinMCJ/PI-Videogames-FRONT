@@ -1,4 +1,4 @@
-const {
+import {
   GET_VIDEOGAMES,
   GET_VIDEOGAMES_BY_NAME,
   GET_VIDEOGAME_BY_ID,
@@ -12,7 +12,7 @@ const {
   GET_GENRES,
   SET_LOADING,
   SET_GAME,
-} = require("../actions/appActions");
+} from "../actions/appActions";
 
 const initialState = {
   isLoading: false,
