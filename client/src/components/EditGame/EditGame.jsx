@@ -1,16 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./EditGame.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { LoadingSpinner } from "../index";
+import { CustomAlert, LoadingSpinner } from "../index";
 import formValidator from "../../utils/validation";
 import { useForm } from "../../hooks/useForm";
 import { editGame } from "../../redux/actions/appActions";
 import { SelectedOptionsList } from "../../components";
-import { setCardEdit } from "../../redux/actions/utilsActions";
+import { setAlert, setCardEdit } from "../../redux/actions/utilsActions";
 
 const MAX_PLATFORMS = 20;
 
-// ! TO DO: FUNCIONALIDAD PARA CERRARLO Y QUE CUANDO LE DE CLICK SE CIERRE TAMBIEN.
 const EditGame = () => {
   const dispatch = useDispatch();
   const gameToEdit = useSelector((state) => state.app.game);
@@ -35,16 +34,16 @@ const EditGame = () => {
     event.preventDefault();
     try {
       await dispatch(editGame(gameToEdit.id, formData));
-      alert(`Game edited succesfully.`);
       closeModal();
+      dispatch(setAlert({message: "Game successfully edited.", time: 1500, status: "success"}))
     } catch (error) {
-      alert(`Error editing game. Try again later`);
+      dispatch(setAlert({message: "Error editing game", time: 1500, status: "error"}))
     }
   };
 
   const closeModal = () => {
-    dispatch(setCardEdit(false))
-  }
+    dispatch(setCardEdit(false));
+  };
 
   return (
     <div className={styles.edit_modal}>

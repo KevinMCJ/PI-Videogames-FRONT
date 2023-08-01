@@ -1,0 +1,21 @@
+.alert {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 0.5rem 4rem;
+  color: black;
+  text-align: center;
+  background-color: white;
+  border-radius: 5px;
+  z-index: 999;
+  border: 2px solid;
+  font-size: 20px !important;
+}
+
+.alert.success {
+  border-color: #22c55e;
+}
+
+.alert.error {
+  border-color: red;
+}

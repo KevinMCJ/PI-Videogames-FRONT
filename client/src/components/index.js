@@ -10,6 +10,7 @@ import FilterSortSection from "./FilterSortSection/FilterSortSection";
 import SelectedOptionsList from "./SelectedOptionsList/SelectedOptionsList";
 import LoadingSpinner from "./LoadingSpinner/LoadingSpinner";
 import EditGame from "./EditGame/EditGame";
+import CustomAlert from "./CustomAlert/CustomAlert";
 
 export {
   NavBar,
@@ -24,4 +25,5 @@ export {
   SelectedOptionsList,
   LoadingSpinner,
   EditGame,
+  CustomAlert,
 };
