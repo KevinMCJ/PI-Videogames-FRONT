@@ -6,7 +6,7 @@ import { useForm } from "../../hooks/useForm";
 import { editGame } from "../../redux/actions/appActions";
 import { SelectedOptionsList } from "../../components";
 import { setCardEdit } from "../../redux/actions/utilsActions";
-import { errorToast, successToast } from "../../utils/toast";
+import { errorToast, successToast } from "../../utils/swal";
 
 const MAX_PLATFORMS = 20;
 

@@ -1,5 +1,9 @@
 import Swal from "sweetalert2";
-import styles from "./toast.module.css";
+import styles from "./swal.module.css";
+
+export const SwalModal = Swal.mixin({
+  customClass: `${styles.swal}`,
+});
 
 const Toast = Swal.mixin({
   toast: true,
@@ -13,6 +17,22 @@ const Toast = Swal.mixin({
     toast.addEventListener("mouseleave", Swal.resumeTimer);
   },
 });
+
+export const successModal = (title, text) => {
+  SwalModal.fire({
+    title: title,
+    text: text,
+    icon: "success",
+  });
+};
+
+export const errorModal = (title, text) => {
+  SwalModal.fire({
+    title: title,
+    text: text,
+    icon: "error",
+  });
+};
 
 export const successToast = (message) => {
   Toast.fire({

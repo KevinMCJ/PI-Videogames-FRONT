@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { errorModal, successModal } from "../utils/swal";
 
 /**
- * 
+ *
  * @param {object} initialForm - Objeto inicial con las propiedades y valores iniciales del formulario.
  * @param {function} validatorFn - Funcion que valida los campos del formulario.
  * @param {function} actionFn - REDUX = ACTION CREATOR que realiza la solicitud POST al servidor.
@@ -66,11 +67,10 @@ export const useForm = (initialForm, validatorFn, actionFn, entityName) => {
     setErrors(validatorFn(formData));
     try {
       await dispatch(actionFn(formData));
-      alert(`NEW ${entityName} CREATED SUCCESSFULLY.`);
+      successModal("Good Job!", "Game created successfully.");
       navigate("/home");
     } catch (error) {
-      // ! CAMBIAR , NO PUEDO MOSTRAR ESTE ERROR TENDRIA QUE SER ERROR DEL FRONT.
-      alert(`ERROR CREATING A NEW ${entityName}: ${error.response.data.error}`);
+      errorModal("Oops!", "Error creating game. Try again later.");
     }
   };
 
