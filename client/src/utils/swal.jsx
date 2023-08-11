@@ -38,6 +38,8 @@ export const successToast = (message) => {
   Toast.fire({
     icon: "success",
     title: message,
+    background: "#30AC7D",
+    color: "#FFFFFF"
   });
 };
 
@@ -45,5 +47,7 @@ export const errorToast = (message) => {
   Toast.fire({
     icon: "error",
     title: message,
+    background: "#FB010D",
+    color: "#FFFFFF"
   });
 };

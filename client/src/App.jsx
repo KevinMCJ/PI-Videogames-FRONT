@@ -23,7 +23,7 @@ function App() {
       dispatch(getGenres()),
       dispatch(getPlatforms()),
       dispatch(getVideogames()),
-    ]).then(() => dispatch(setLoading(false)));
+    ]).finally(() => dispatch(setLoading(false)));
   }, [dispatch]);
 
   return (
