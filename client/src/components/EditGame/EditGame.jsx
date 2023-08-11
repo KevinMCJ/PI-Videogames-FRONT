@@ -1,12 +1,12 @@
-import React, { useState } from "react";
 import styles from "./EditGame.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { CustomAlert, LoadingSpinner } from "../index";
+import { LoadingSpinner } from "../index";
 import formValidator from "../../utils/validation";
 import { useForm } from "../../hooks/useForm";
 import { editGame } from "../../redux/actions/appActions";
 import { SelectedOptionsList } from "../../components";
-import { setAlert, setCardEdit } from "../../redux/actions/utilsActions";
+import { setCardEdit } from "../../redux/actions/utilsActions";
+import { errorToast, successToast } from "../../utils/toast";
 
 const MAX_PLATFORMS = 20;
 
@@ -35,9 +35,9 @@ const EditGame = () => {
     try {
       await dispatch(editGame(gameToEdit.id, formData));
       closeModal();
-      dispatch(setAlert({message: "Game successfully edited.", time: 1500, status: "success"}))
+      successToast("Edited successfully");
     } catch (error) {
-      dispatch(setAlert({message: "Error editing game", time: 1500, status: "error"}))
+      errorToast("Failed game edition.");
     }
   };
 

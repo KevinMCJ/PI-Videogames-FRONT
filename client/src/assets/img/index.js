@@ -9,6 +9,7 @@ import calendarIcon from "./calendar-icon.svg";
 import ratingIcon from "./rating-icon.svg";
 import notesIcon from "./notes-icon.svg";
 import editIcon from "./edit-icon.svg";
+import deleteIcon from "./delete-icon.svg"
 
 export {
   controllerIcon,
@@ -22,4 +23,5 @@ export {
   ratingIcon,
   notesIcon,
   editIcon,
+  deleteIcon,
 };

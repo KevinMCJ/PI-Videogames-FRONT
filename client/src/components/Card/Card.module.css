@@ -8,9 +8,9 @@
   border: 2px solid black;
   border-radius: 18px;
   overflow: hidden;
-  margin: 0 auto;
   box-shadow: 0px 2px 36px -5px rgba(0, 0, 0, 0.917);
   cursor: pointer;
+  position: relative;
 }
 
 .modal {
@@ -54,12 +54,31 @@
   object-fit: cover;
 }
 
-.edit_button {
+.card_buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: absolute;
+  top: 0;
+  z-index: 3;
+  width: 100%;
+}
+
+.card_buttons h3 {
+  font-size: 1rem;
+}
+
+.card_buttons img {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.edit_button {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  letter-spacing: 1px;
   width: 40%;
   top: 0;
   left: 0;
@@ -71,16 +90,27 @@
   transform: scale(1.1);
 }
 
-.edit_button h3 {
-  font-size: 1rem;
+.swal{
+  font-size: 1.2rem;
 }
 
-.edit_button img {
-  width: 1.4rem;
-  height: 1.4rem;
+.delete_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  letter-spacing: 1px;
+  border: 2px solid black;
+  color: inherit;
+  background-color: #ff333c;
+  border-bottom-left-radius: 10px;
+  display: none;
+  transform: scale(1.1);
+  z-index: 999;
 }
 
-.card:hover .edit_button {
+.card:hover .edit_button,
+.card:hover .delete_button {
   display: flex;
 }
 

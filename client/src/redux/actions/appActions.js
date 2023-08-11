@@ -12,6 +12,7 @@ export const SORT_BY_RATING = "SORT_BY_RATING";
 export const CLEAR_FILTERS = "CLEAR_FILTERS";
 export const CREATE_GAME = "CREATE_GAME";
 export const EDIT_GAME = "EDIT_GAME";
+export const DELETE_GAME = "DELETE_GAME";
 export const GET_PLATFORMS = "GET_PLATFORMS";
 export const GET_GENRES = "GET_GENRES";
 export const SET_LOADING = "SET_LOADING";
@@ -104,6 +105,18 @@ export const editGame = (id, editedGame) => {
     });
   };
 };
+
+export const deleteGame = (id) => {
+  return async (dispatch) => {
+    const endpoint = `${baseURL}/videogames/${id}`;
+    const { data } = await axios.delete(endpoint);
+
+    dispatch({
+      type: DELETE_GAME,
+      payload: data,
+    })
+  }
+}
 
 export const getPlatforms = () => {
   return async (dispatch) => {

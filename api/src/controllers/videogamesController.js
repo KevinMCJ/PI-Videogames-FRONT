@@ -149,7 +149,7 @@ const deleteVideogame = async (id) => {
   await gameToDelete.removeGenres();
   await gameToDelete.removePlatforms();
   await gameToDelete.destroy();
-  return {id, ...deletedGame};
+  return {id, ...deletedGame, origin: "created"};
 }
 
 module.exports = {

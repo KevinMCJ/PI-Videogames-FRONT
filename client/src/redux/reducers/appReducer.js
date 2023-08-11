@@ -8,6 +8,7 @@ import {
   CLEAR_FILTERS,
   CREATE_GAME,
   EDIT_GAME,
+  DELETE_GAME,
   GET_PLATFORMS,
   GET_GENRES,
   SET_LOADING,
@@ -86,6 +87,19 @@ const appReducer = (state = initialState, action) => {
         ...state,
         allGames: updatedAllGames,
         copyGames: updatedCopyGames,
+      };
+    case DELETE_GAME:
+      const { deletedGame } = action.payload;
+      const updatedGamesD = state.allGames.filter(
+        (game) => game.id !== deletedGame.id
+      );
+      const updatedCopyGamesD = state.copyGames.filter(
+        (game) => game.id !== deletedGame.id
+      );
+      return {
+        ...state,
+        allGames: updatedGamesD,
+        copyGames: updatedCopyGamesD,
       };
     case GET_PLATFORMS:
       return { ...state, platforms: action.payload };
