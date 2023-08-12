@@ -1,5 +1,4 @@
 import axios from "axios";
-const baseURL = "http://localhost:3001";
 
 // * ACTION TYPES
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
@@ -20,8 +19,7 @@ export const SET_LOADING = "SET_LOADING";
 // * ACTIONS CREATORS - THUNK.
 export const getVideogames = () => {
   return async (dispatch) => {
-    const endpoint = `${baseURL}/videogames`;
-    const { data } = await axios.get(endpoint);
+    const { data } = await axios.get("/videogames");
 
     dispatch({
       type: GET_VIDEOGAMES,
@@ -32,8 +30,7 @@ export const getVideogames = () => {
 
 export const getVideogamesByName = (name) => {
   return async (dispatch) => {
-    const endpoint = `${baseURL}/videogames?name=${name}`;
-    const { data } = await axios.get(endpoint);
+    const { data } = await axios.get(`/videogames?name=${name}`);
 
     dispatch({
       type: GET_VIDEOGAMES_BY_NAME,
@@ -44,8 +41,7 @@ export const getVideogamesByName = (name) => {
 
 export const getVideogameById = (id) => {
   return async (dispatch) => {
-    const endpoint = `${baseURL}/videogames/${id}`;
-    const { data } = await axios.get(endpoint);
+    const { data } = await axios.get(`/videogames/${id}`);
 
     dispatch({
       type: GET_VIDEOGAME_BY_ID,
@@ -84,8 +80,7 @@ export const sortGamesByRating = (order) => {
 
 export const createGame = (newGame) => {
   return async (dispatch) => {
-    const endpoint = `${baseURL}/videogames`;
-    const { data } = await axios.post(endpoint, newGame);
+    const { data } = await axios.post(`/videogames`, newGame);
 
     dispatch({
       type: CREATE_GAME,
@@ -96,8 +91,7 @@ export const createGame = (newGame) => {
 
 export const editGame = (id, editedGame) => {
   return async (dispatch) => {
-    const endpoint = `${baseURL}/videogames/${id}`;
-    const { data } = await axios.put(endpoint, editedGame);
+    const { data } = await axios.put(`/videogames/${id}`, editedGame);
     
     dispatch({
       type: EDIT_GAME,
@@ -108,8 +102,7 @@ export const editGame = (id, editedGame) => {
 
 export const deleteGame = (id) => {
   return async (dispatch) => {
-    const endpoint = `${baseURL}/videogames/${id}`;
-    const { data } = await axios.delete(endpoint);
+    const { data } = await axios.delete(`/videogames/${id}`);
 
     dispatch({
       type: DELETE_GAME,
@@ -120,8 +113,7 @@ export const deleteGame = (id) => {
 
 export const getPlatforms = () => {
   return async (dispatch) => {
-    const endpoint = `${baseURL}/platforms`;
-    const { data } = await axios.get(endpoint);
+    const { data } = await axios.get(`/platforms`);
 
     dispatch({
       type: GET_PLATFORMS,
@@ -132,8 +124,7 @@ export const getPlatforms = () => {
 
 export const getGenres = () => {
   return async (dispatch) => {
-    const endpoint = `${baseURL}/genres`;
-    const { data } = await axios.get(endpoint);
+    const { data } = await axios.get(`/genres`);
 
     dispatch({
       type: GET_GENRES,
