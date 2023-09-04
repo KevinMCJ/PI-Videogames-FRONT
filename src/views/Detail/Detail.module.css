@@ -143,7 +143,6 @@ p {
   font-weight: 400;
   font-size: 1.4rem;
   overflow: auto;
-  padding: 0.8rem;
 }
 
 @media screen and (max-width: 1200px) {
