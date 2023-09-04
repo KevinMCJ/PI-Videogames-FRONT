@@ -1,4 +1,6 @@
 .container {
+  max-width: 2000px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,4 +13,5 @@
 .no_matches{
   font-size: 3rem;
   font-weight: 600;
+  text-align: center;
 }
