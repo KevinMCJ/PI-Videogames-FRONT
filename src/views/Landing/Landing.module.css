@@ -1,9 +1,11 @@
 .container {
   background: url("../../assets/img/landing-background.webp");
   background-size: cover;
+  background-position: center center;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding: 0 2rem;
 }
 
 .title {
@@ -38,4 +40,18 @@
 .btn:hover {
   transition: all 1s;
   transform: translate(10px, 10px);
+}
+
+@media screen and (max-width: 548px) {
+  .container {
+    align-items: center;
+    justify-content: center;
+  }
+  .btn{
+    margin: 0 auto;
+  }
+
+  .title{
+    font-size: 15vw;
+  }
 }
