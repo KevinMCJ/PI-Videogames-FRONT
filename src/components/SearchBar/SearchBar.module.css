@@ -94,6 +94,9 @@
   }
 
   .searchBtn {
-    border-radius: 10px;
+    border-radius: 999px;
+    width: 60%;
+    align-self: center;
+    text-transform: uppercase;
   }
 }
