@@ -6,6 +6,10 @@ import { controllerIcon } from "../../assets/img";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const closeNavigation = () => {
+    setIsOpen(false);
+  }
+
   // * Cerrar el menu cuando cambia a desktop.
   useEffect(() => {
     const handleResize = () => {
@@ -39,12 +43,12 @@ const NavBar = () => {
         </button>
         <ul className={`${styles.linkList} ${isOpen ? styles.open : ""}`}>
           <li>
-            <Link to="/home">
+            <Link to="/home" onClick={closeNavigation}>
               <p>Home</p>
             </Link>
           </li>
           <li>
-            <Link to="/create">
+            <Link to="/create" onClick={closeNavigation}>
               <p>Create</p>
             </Link>
           </li>
