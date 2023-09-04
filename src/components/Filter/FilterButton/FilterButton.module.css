@@ -1,7 +1,3 @@
-.filter {
-  position: relative;
-}
-
 .filterBtn {
   display: flex;
   align-items: center;
