@@ -49,7 +49,7 @@ button {
   width: 10px; /* Make the scrollbar thumb thinner */
   height: 10px; /* Make the scrollbar thumb thinner */
   border-radius: 5px; /* Round the corners of the scrollbar thumb */
-  background-color: #02000b; /* Change the color of the scrollbar thumb */
+  background-color: #2a3651; /* Change the color of the scrollbar thumb */
 }
 
 code {
@@ -60,11 +60,5 @@ code {
 @media screen and (max-width: 1700px) {
   :root{
     font-size: 12px;
-  }
-}
-
-@media screen and (max-width: 850px) {
-  :root{
-    font-size: 9px;
   }
 }
