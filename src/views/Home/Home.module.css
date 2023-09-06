@@ -8,3 +8,9 @@
   flex-direction: column;
   overflow: scroll;
 }
+
+@media screen and (max-width: 468px) {
+  .home_section{
+    padding: 10px;
+  }
+}
