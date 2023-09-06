@@ -79,18 +79,17 @@
   background: linear-gradient(to right, #e90f65, #e90f49);
 }
 
-/* ! FALTAN CAMBIOS */
-
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 530px) {
   .bar {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    width: auto;
+    width: 100%;
   }
 
   .input {
     border-radius: 999px;
+    width: 100%;
   }
 
   .searchBtn {
@@ -100,3 +99,10 @@
     text-transform: uppercase;
   }
 }
+
+@media screen and (max-width: 375px) {
+  .searchBtn {
+    width: 100%;
+  }
+}
+
