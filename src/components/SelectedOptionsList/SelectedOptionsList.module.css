@@ -29,3 +29,29 @@
   font-size: 1.2rem;
   text-align: center;
 }
+
+@media screen and (max-width: 1028px){
+  .selected_options_list{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 678px){
+  .selected_options_list{
+    grid-template-columns: 1fr 1fr;
+    justify-items: initial;
+    column-gap: 10px;
+  }
+
+  .list_item{
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 500px){
+  .selected_options_list{
+    grid-template-columns: 1fr;
+    max-height: 15.3rem;
+    overflow: auto;
+  }
+}

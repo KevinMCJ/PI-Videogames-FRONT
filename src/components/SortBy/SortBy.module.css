@@ -36,19 +36,25 @@
   }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 780px) {
   .container {
     display: flex;
     justify-content: center;
     grid-row: 1;
     grid-column: 1 / -1;
   }
-
+  
   .container div {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.3rem;
+    width: 100%;
+  }
+
+  .select {
+    width: 100%;
+    padding: 1rem 0;
   }
 
   .label {
@@ -57,7 +63,8 @@
   }
 }
 
-@media screen and (max-width: 400px) {
+
+@media screen and (max-width: 468px) {
   .container {
     flex-direction: column;
   }
