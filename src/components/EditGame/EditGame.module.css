@@ -19,6 +19,7 @@
   max-width: 70rem;
   padding: 1rem 3rem;
   border: 1px solid black;
+  border-radius: 0.5rem;
   background-color: rgb(20, 20, 20);
   overflow: auto;
   position: relative;
@@ -37,7 +38,8 @@
   color: white;
   border-left: 1px solid;
   border-bottom: 1px solid;
-  border-color: rgb(100, 94, 94);
+  border: none;
+  border-bottom-left-radius: 1rem;
 }
 
 .close_modal:hover{
@@ -162,4 +164,49 @@
   background-color: #c51a45;
   border: 2px solid #cf0b2c;
   transition: all 0.1s;
+}
+
+@media screen and (min-width: 1704px) {
+  .form_wrapper {
+    max-width: 1366px;
+  }
+}
+
+@media screen and (max-width: 1028px) {
+  .form_wrapper {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 678px) {
+  .multiple_select_container {
+    grid-template-columns: 1fr;
+  }
+
+  .grid_two_columns {
+    grid-template-columns: auto;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .form_wrapper {
+    padding: 1rem 15px;
+  }
+
+  .form_section {
+    padding: 10px;
+  }
+
+  .form_wrapper {
+    border-width: 1px;
+  }
+
+  .input_container input,
+  .input_container textarea {
+    border: none;
+  }
+
+  .error_center {
+    text-align: initial;
+  }
 }
