@@ -89,7 +89,7 @@
   font-weight: 400;
   font-size: 1.4em;
   overflow: auto;
-  padding: 0.8em;
+  padding: 0.8em 0;
 }
 
 @media screen and (max-width: 1200px) {
