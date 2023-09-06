@@ -13,7 +13,7 @@ const NavBar = () => {
   // * Cerrar el menu cuando cambia a desktop.
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 650) {
+      if (window.innerWidth >= 678) {
         setIsOpen(false);
       }
     };
