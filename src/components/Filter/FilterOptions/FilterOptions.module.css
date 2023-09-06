@@ -99,7 +99,7 @@
 }
 
 
-@media screen and (max-width: 650px){
+@media screen and (max-width: 780px){
   .filters_grid{
     grid-template-columns: 1fr;
     width: 100%;
@@ -125,7 +125,7 @@
   }
 }
 
-@media screen and (max-width: 400px){
+@media screen and (max-width: 468px){
   .filters_grid{
     grid-template-columns: 1fr;
     width: 100%;

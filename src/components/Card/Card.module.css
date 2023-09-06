@@ -136,8 +136,15 @@
   border-radius: 8px;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 468px) {
   .card {
-    width: 70%;
+    width: 65%;
   }
 }
+
+@media screen and (max-width: 375px) {
+  .card {
+    width: 90%;
+  }
+}
+
