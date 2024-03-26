@@ -1,11 +1,14 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { getVideogamesByName, setLoading } from "../../redux/actions/appActions.js";
-import styles from "./SearchBar.module.css";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  getVideogamesByName,
+  setLoading,
+} from '../../redux/actions/appActions.js';
+import styles from './SearchBar.module.css';
 
 const SearchBar = ({ handlePageChange }) => {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
 
   const handleChange = (event) => {
     setName(event.target.value);
@@ -16,12 +19,13 @@ const SearchBar = ({ handlePageChange }) => {
     dispatch(setLoading(true));
     dispatch(getVideogamesByName(name)).then(() => {
       dispatch(setLoading(false));
+      setName('');
       handlePageChange(1);
     });
   };
 
   return (
-    <div className={styles.search}>
+    <form onSubmit={handleSubmit} className={styles.search}>
       <label htmlFor="search">Search By Name</label>
       <div className={styles.bar}>
         <input
@@ -31,15 +35,11 @@ const SearchBar = ({ handlePageChange }) => {
           value={name}
           className={styles.input}
         />
-        <button
-          type="button"
-          onClick={handleSubmit}
-          className={styles.searchBtn}
-        >
+        <button type="submit" className={styles.searchBtn}>
           Search
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 
