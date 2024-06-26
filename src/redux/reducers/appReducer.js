@@ -13,7 +13,7 @@ import {
   GET_GENRES,
   SET_LOADING,
   SET_GAME,
-} from "../actions/appActions";
+} from '../actions/appActions';
 
 const initialState = {
   isLoading: false,
@@ -35,24 +35,25 @@ const appReducer = (state = initialState, action) => {
     case SET_GAME:
       return { ...state, game: action.payload };
     case FILTER_GAMES:
-      const { selectedGenres, selectedOrigin } = action.payload;
+      const { selectedGenres } = action.payload;
 
       /*
        * Filtrado: Todos los juegos que incluyan TODOS los generos de seleccionados
        * Y su origen también coincida lo seleccionado por el usuario. Por defecto = all */
-      const filteredGames = state.allGames.filter(
-        (game) =>
-          selectedGenres.every((genre) => game.genres.includes(genre)) &&
-          (selectedOrigin === "all" || game.origin === selectedOrigin)
-      );
+      const filteredGames = state.allGames.filter((game) => {
+        const mappedGenresNames = game.genres.map((g) => g.name);
+        return selectedGenres.every((genre) =>
+          mappedGenresNames.includes(genre)
+        );
+      });
       return { ...state, copyGames: filteredGames };
     case SORT_BY_NAME:
       const sortedGamesByName = [...state.copyGames];
 
       // * str1.localCompare(str2) retorna negativo/positivo o 0. Comparando alfabeticamente 2 cadenas a b.
-      if (action.payload === "asc") {
+      if (action.payload === 'asc') {
         sortedGamesByName.sort((a, b) => a.name.localeCompare(b.name));
-      } else if (action.payload === "desc") {
+      } else if (action.payload === 'desc') {
         sortedGamesByName.sort((a, b) => b.name.localeCompare(a.name));
       }
 
@@ -61,9 +62,9 @@ const appReducer = (state = initialState, action) => {
       const sortedGamesByRating = [...state.copyGames];
 
       // * EJ - B=5 A=4 , 5 - 4 = 1 (positivo) , entonces el sort coloca a b antes que a.
-      if (action.payload === "highest") {
+      if (action.payload === 'highest') {
         sortedGamesByRating.sort((a, b) => b.rating - a.rating);
-      } else if (action.payload === "lowest") {
+      } else if (action.payload === 'lowest') {
         sortedGamesByRating.sort((a, b) => a.rating - b.rating);
       }
 

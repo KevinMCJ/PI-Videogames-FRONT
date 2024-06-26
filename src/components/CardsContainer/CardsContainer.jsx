@@ -1,7 +1,7 @@
-import React from "react";
-import { Card, LoadingSpinner } from "../index";
-import styles from "./CardsContainer.module.css";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { Card, LoadingSpinner } from '../index';
+import styles from './CardsContainer.module.css';
+import { useSelector } from 'react-redux';
 
 const CardsContainer = ({ videogames }) => {
   const isLoading = useSelector((state) => state.app.isLoading);
@@ -12,7 +12,7 @@ const CardsContainer = ({ videogames }) => {
         <LoadingSpinner />
       ) : (
         <>
-          {videogames && videogames.length ? (
+          {videogames.length > 0 ? (
             videogames.map((game) => <Card key={game.id} game={game} />)
           ) : (
             <h3 className={styles.no_matches}>No results found... ☹️</h3>

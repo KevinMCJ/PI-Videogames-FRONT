@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { filterGames } from "../../../redux/actions/appActions";
-import styles from "./FilterOptions.module.css";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { filterGames } from '../../../redux/actions/appActions';
+import styles from './FilterOptions.module.css';
 
 const FilterOptions = ({ setIsOpen, handlePageChange }) => {
   const dispatch = useDispatch();
   const genres = useSelector((state) => state.app.genres);
   const [selectedGenres, setSelectedGenres] = useState([]);
-  const [selectedOrigin, setSelectedOrigin] = useState("all");
-  const originOptions = ["all", "api", "created"];
 
   const handleCheckboxChange = (event) => {
     const { name, value, checked } = event.target;
@@ -17,23 +15,19 @@ const FilterOptions = ({ setIsOpen, handlePageChange }) => {
      * Checked es una propiedad del checkbox que indica si esta marcado o no.
      * Si lo esta, se agrega el valor [genero] al array de seleccionados.
      * De lo contrario, si lo desmarca, se elimina del array de seleccionados.*/
-    if (name === "genre") {
+    if (name === 'genre') {
       setSelectedGenres(
         checked
           ? [...selectedGenres, value]
           : selectedGenres.filter((genre) => genre !== value)
       );
     }
-
-    // * Origin solo acepta una opción, por defecto se encuentra el valor "all".
-    if (name === "origin") setSelectedOrigin(value);
   };
 
   const handleFilter = () => {
     dispatch(
       filterGames({
         selectedGenres,
-        selectedOrigin,
       })
     );
     handlePageChange(1);
@@ -60,17 +54,17 @@ const FilterOptions = ({ setIsOpen, handlePageChange }) => {
             ))}
           </ul>
         </div>
-        <div className={styles.filter_column}>
-          <h3>ORIGIN</h3>
+        {/* <div className={styles.filter_column}>
+          <h3>PLATFORMS</h3>
           <ul className={styles.origin_list}>
-            {originOptions.map(origin => (
+            {platforms.map(data => (
               <li className={styles.list_item}>
-                <input type="checkbox" name="origin" value={origin} checked={selectedOrigin === origin} onChange={handleCheckboxChange} className={styles.checkbox}/>
+                <input type="checkbox" name="origin" value={data.platform.name} checked={selectedOrigin === origin} onChange={handleCheckboxChange} className={styles.checkbox}/>
                 <label htmlFor="origin">{origin}</label>
               </li>
             )) }
           </ul>
-        </div>
+        </div> */}
       </div>
       <button
         onClick={() => {

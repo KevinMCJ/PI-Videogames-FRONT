@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getVideogameById, setLoading } from "../../redux/actions/appActions";
-import { LoadingSpinner } from "../../components";
-import Mobile from "./Mobile";
-import styles from "./Detail.module.css";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getVideogameById, setLoading } from '../../redux/actions/appActions';
+import { LoadingSpinner } from '../../components';
+import Mobile from './Mobile';
+import styles from './Detail.module.css';
 import {
   bookIcon,
   gamepadIcon,
   calendarIcon,
   ratingIcon,
   notesIcon,
-} from "../../assets/img";
+} from '../../assets/img';
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const Detail = () => {
           <div className={styles.detail_wrapper}>
             <div className={styles.detail_container}>
               <img
-                src={game.image}
+                src={game.background_image}
                 alt={`${game.name} cover`}
                 className={styles.image}
               />
@@ -47,10 +47,11 @@ const Detail = () => {
                       <h3 className={styles.info_title}>Genres</h3>
                     </div>
                     <ul className={styles.list}>
-                      {game.genres &&
-                        game.genres.map((genre, index) => (
-                          <li key={index}>{genre}</li>
-                        ))}
+                      {game.genres && game.genres.length > 0
+                        ? game.genres.map((genre, index) => (
+                            <li key={index}>{genre.name}</li>
+                          ))
+                        : null}
                     </ul>
                   </div>
                   <div className={styles.list_container}>
@@ -59,10 +60,11 @@ const Detail = () => {
                       <h3 className={styles.info_title}>Platforms</h3>
                     </div>
                     <ul className={styles.list}>
-                      {game.platforms &&
-                        game.platforms.map((platform, index) => (
-                          <li key={index}>{platform}</li>
-                        ))}
+                      {game.platforms && game.platforms.length > 0
+                        ? game.platforms.map((data, index) => (
+                            <li key={index}>{data.platform.name}</li>
+                          ))
+                        : null}
                     </ul>
                   </div>
                   <div className={styles.short_info_container}>

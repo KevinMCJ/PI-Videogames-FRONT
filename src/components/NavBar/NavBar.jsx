@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import styles from "./NavBar.module.css";
-import { controllerIcon } from "../../assets/img";
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import styles from './NavBar.module.css';
+import { controllerIcon } from '../../assets/img';
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeNavigation = () => {
     setIsOpen(false);
-  }
+  };
 
   // * Cerrar el menu cuando cambia a desktop.
   useEffect(() => {
@@ -18,10 +18,10 @@ const NavBar = () => {
       }
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -34,24 +34,24 @@ const NavBar = () => {
             <h1>GameDex</h1>
           </div>
         </Link>
-        <button className={`${styles.toggleBtn} ${isOpen ? styles.open : ""}`}>
+        <button className={`${styles.toggleBtn} ${isOpen ? styles.open : ''}`}>
           <img
             src={controllerIcon}
             alt="Controller icon"
             onClick={() => setIsOpen(!isOpen)}
           />
         </button>
-        <ul className={`${styles.linkList} ${isOpen ? styles.open : ""}`}>
+        <ul className={`${styles.linkList} ${isOpen ? styles.open : ''}`}>
           <li>
             <Link to="/home" onClick={closeNavigation}>
               <p>Home</p>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/create" onClick={closeNavigation}>
               <p>Create</p>
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </header>

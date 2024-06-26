@@ -1,5 +1,5 @@
 .detail_section {
-  background: url("../../assets/img/app-background.webp");
+  background: url('../../assets/img/app-background.webp');
   background-size: cover;
   min-height: 100vh;
   display: flex;
@@ -139,7 +139,7 @@ p {
   height: auto;
   line-height: 1.4;
   width: 100%;
-  max-height: 10rem;
+  max-height: 100px;
   font-weight: 400;
   font-size: 1.4rem;
   overflow: auto;

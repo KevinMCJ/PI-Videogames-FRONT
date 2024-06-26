@@ -9,7 +9,7 @@ import store from './redux/store';
 import axios from 'axios';
 
 // axios.defaults.baseURL = "http://localhost:3001";
-axios.defaults.baseURL = 'https://gamedex-back.onrender.com';
+axios.defaults.baseURL = 'https://api.rawg.io/api';
 
 ReactDOM.render(
   <React.StrictMode>
