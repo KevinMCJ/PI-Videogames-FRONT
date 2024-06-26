@@ -26,6 +26,8 @@ function App() {
     ]).finally(() => dispatch(setLoading(false)));
   }, [dispatch]);
 
+  // console.log("Este log fue utilizado para ejecutar el deploy nuevamente");
+
   return (
     <div className="App">
       {location.pathname !== '/' && <NavBar />}
